@@ -38,10 +38,3 @@
   (square-iter 1.0 x))
 
 ; (display (sqrt (+ 32 32)))
-
-
-(define (new-if predicate then-clause else-clause)
-  (cond (predicate then-clause)
-        (else else-clause)))
-
-(display (new-if (> 2 3) 5 6))

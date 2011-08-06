@@ -50,3 +50,73 @@ equivalent to previous definition.
     (define (abs x)
       (if (< x 0) (- x)
           x))
+
+## Procedure substitution model
+
+To evaluate statements whose part are operators that form compound
+procedures to primitive ones we use so called substitution models. There
+are two of them.
+
+### Applicative order
+
+This substitution model is based on the process of substitution which is
+based on next steps:
+
+* Evaluate the body of the compound procedure
+* Evaluate the corresponding arguments for the new procedure
+
+Example:
+
+    (f 5)
+
+evaluates compound procedure `f` to
+
+    (sum-of-squares (+ a 1) (* a 2))
+
+after we replace corresponding arguments
+
+    (sum-of-squares (+ 5 1) (* 5 2))
+
+now that becomes
+
+    (+ (square 6) (square 10))
+
+and
+
+    (+ (* 6 6) (* 10 10))
+
+then
+
+    (+ 36 100)
+
+which finally gives `136` as the result. 
+
+### Normal order
+
+Normal order is different in the sense that it doesn't evaluate
+corresponding operands until substitution process evaluates all the
+procedure bodies (operators) to the primitive operations. Example
+
+    (f 5)
+
+evaluates to:
+
+    (sum-of-squares (+ 5 1) (* 5 2))
+
+further expands to
+
+    (+ (square (+ 5 1)) (square (* 5 2)))
+
+becomes
+
+    (+ (* (+ 5 1) (+ 5 1)) (* (* 5 2) (* 5 2)))
+
+which is now reduced to following
+
+    (+ (* 6 6) (* 10 10))
+
+then
+
+    (+ 36 100)
+
+which is again `136` as the result
