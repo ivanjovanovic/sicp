@@ -37,3 +37,8 @@ Usually I go this way through the material:
 Of course, I don't tend to do this in one take, I do it continuously
 when I have free time but trying to dedicate as much time as I can to
 this so I don't lose the track of where I stoped.
+
+
+### Used references
+
+* [Scheme at Glance](http://www.troubleshooters.com/codecorn/scheme_guile/hello.htm)
