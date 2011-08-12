@@ -40,3 +40,8 @@ space = O(c) - constant
 This kind of process has all the states that define it captured in local
 variables and could be restarted with provided local variables in any
 time.
+
+
+## Tree recursion
+
+Common pattern of recursive computation.

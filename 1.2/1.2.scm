@@ -80,3 +80,88 @@
 ; next computation
 ;
 ; This kind of process is called `linear iteration`
+;
+
+; Tree recursion is one common pattern of recursive computation.
+; Definition of fibonnaci sequence expains it
+;
+
+(define (fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (+ (fib (- n 1))
+                 (fib (- n 2))))))
+; (display (fib 5))
+; (newline)
+
+; One thing to see here is how for every call of fibonnaci we have 2
+; more calls spawned during recursion. Here number of steps needed
+; to calculate grow exponentially and space grows only linearly.
+;
+;                          fib 5
+;                         /     \
+;                       fib 4    fib 3 ....
+;                     /     \
+;                   fib 3    fib 2
+;                 /     \       .....
+;               fib 2   fib 1
+;             /     \
+;             fib 1  fib 0
+;
+; This part of the tree is presenting what is happening with the
+; recursion. We can see that number of computations (width) is growing
+; rapidly with the size of n while number of elements needed to be
+; remembered (height) are growing slower and linear with size of the
+; input.
+;
+; time(n) = Fib(n+1) ~ O(Phi^n)
+; sace = O(n)
+;
+;
+; Fibonacci sequence can be defined as well through a iterative process.
+
+(define (fib n)
+  (fib-iter 0 1 n))
+
+(define (fib-iter a b count)
+  (if (= count 0)
+      a
+      (fib-iter b (+ a b) (- count 1))))
+
+; (display (fib 100))
+; (newline)
+;
+
+; Calculating all the ways to return a change with the given list of
+; money amounts is a bit more complicated recursive process.
+
+(define (count-change amount)
+  (cc amount 5))
+(define (cc amount kinds-of-coins)
+  (cond ((= amount 0) 1)
+        ((or (< amount 0) (= kinds-of-coins 0)) 0)
+        (else (+
+                (cc amount (- kinds-of-coins 1))
+                (cc (- amount (first-denomination kinds-of-coins)) kinds-of-coins)))))
+
+(define (first-denomination kinds-of-coins)
+  (cond ((= kinds-of-coins 1) 1)
+        ((= kinds-of-coins 2) 5)
+        ((= kinds-of-coins 3) 10)
+        ((= kinds-of-coins 4) 25)
+        ((= kinds-of-coins 5) 50)))
+
+; (display (count-change 100))
+; (newline)
+;
+; This will take a while until it resolves to 292 ways to change 100
+; with denominations of 50, 25, 10, 5 and 1
+
+
+
+
+
+
+
+
+
