@@ -13,7 +13,10 @@
 ; Write a procedure that computes elements of Pascal's triangle by means of a recursive process.
 ;
 ; -----------------------------------------------------------------
-
+;
+;
+; For given row and col 1-based values, we can define this simple
+; recursive function.
 
 
 (define (pascal row col)
