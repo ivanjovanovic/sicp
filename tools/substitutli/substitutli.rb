@@ -8,6 +8,9 @@
 # Based on http://norvig.com/lispy.html ideas
 
 # Builds a list of separated tokens out of provided string
+
+primitives = ['+', '-', '*', '/', 'define', 'cond', 'if']
+
 def tokenize(s)
   s.gsub!('(', ' ( ').gsub!(')', ' ) ').split()
 end
@@ -21,10 +24,11 @@ def process(tokens)
   if '(' == token
     list = []
     while tokens[0] != ')'
-      list.push(process(tokens))
+      l, t = process(tokens)
+      list.push(l)
     end
     tokens.shift
-    return list
+    return list, tokens
   elsif ')' == token
     raise SyntaxError, 'Unexpected ) found'
   else
@@ -35,7 +39,11 @@ end
 # parsing function
 def parse(s)
   tokens = tokenize(s)
-  process(tokens)
+  parse_tree = []
+  while !tokens.empty? do
+    list, tokens = process(tokens)
+    parse_tree.push(list)
+  end
+
+  parse_tree
 end
-
-
