@@ -12,4 +12,30 @@ def tokenize(s)
   s.gsub!('(', ' ( ').gsub!(')', ' ) ').split()
 end
 
+# recursive function for processing of tokens
+def process(tokens)
+  raise SyntaxError, 'Unexpected EOF encountered' if 0 == tokens.length
+
+  token = tokens.shift
+
+  if '(' == token
+    list = []
+    while tokens[0] != ')'
+      list.push(process(tokens))
+    end
+    tokens.shift
+    return list
+  elsif ')' == token
+    raise SyntaxError, 'Unexpected ) found'
+  else
+    token
+  end
+end
+
+# parsing function
+def parse(s)
+  tokens = tokenize(s)
+  process(tokens)
+end
+
 
