@@ -8,9 +8,6 @@
 # Based on http://norvig.com/lispy.html ideas
 
 # Builds a list of separated tokens out of provided string
-
-primitives = ['+', '-', '*', '/', 'define', 'cond', 'if']
-
 def tokenize(s)
   s.gsub!('(', ' ( ').gsub!(')', ' ) ').split()
 end
@@ -46,4 +43,36 @@ def parse(s)
   end
 
   parse_tree
+end
+
+# when we have parse tree we can evaluate it for what we want.
+
+# set up execution environment as an extended hash
+class Env < Hash
+  def initialize(vars = {}, outer = nil)
+    self.merge!(vars)
+    self[:outer] = outer
+  end
+
+  def find(var)
+    return self if self.key?(var)
+    return self[:outer].find(var) if !self[:outer].nil?
+    nil
+  end
+end
+
+# initialize outermost environment with the global methods
+def set_global_env
+  env = Env.new({
+    '+' => lambda {|a,b| a + b},
+    '-' => lambda {|a,b| a - b},
+    '*' => lambda {|a,b| a * b},
+    '/' => lambda {|a,b| a / b}
+  })
+end
+
+global_env = set_global_env
+
+def eval(x, env=global_env)
+
 end

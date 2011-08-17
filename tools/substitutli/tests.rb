@@ -39,4 +39,31 @@ describe 'Substitutli' do
       ], parse_tree
     end
   end
+
+  describe "environment" do
+
+    it "should initialize with given vars" do
+      env = Env.new({:test => 'test', '2' => '2'}, Env.new)
+
+      assert_equal 'test', env[:test]
+      assert_equal '2', env['2']
+    end
+
+    it "should return innermost var defined in environments" do
+      env = Env.new({var1: '1', var2: '2'}, Env.new({var3: '3'}))
+
+      assert_equal '2', env.find(:var1)[:var2]
+      assert_equal '3', env.find(:var3)[:var3]
+      assert_equal nil, env.find(:var4)
+    end
+
+    it "should set global environment" do
+      global_env = set_global_env
+      assert_equal Proc, global_env['+'].class
+    end
+  end
+
+  describe "evaluation" do
+
+  end
 end
