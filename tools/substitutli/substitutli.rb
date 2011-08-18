@@ -69,10 +69,21 @@ def set_global_env
     '*' => lambda {|a,b| a * b},
     '/' => lambda {|a,b| a / b}
   })
+  env[:primitives] = ['+', '-', '*', '/']
+  return env
 end
 
 global_env = set_global_env
 
-def eval(x, env=global_env)
+# applicative order of evaluation is done in two steps
+# 1. Fetch the procedure to be evaluated
+# 2. Evaluate arguments for the fetched procedure
+#
+# @see http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-10.html#%_sec_1.1.5
+def applicative_eval(parse_tree, env = global_env)
+
+end
+
+def normal_eval(parse_tree, env = global_env)
 
 end
