@@ -35,7 +35,7 @@
 ; p (applicative substitution which works on the principle 'evaluate operator 
 ; and the operands and then apply operators to operands, eval -> apply').
 ;
-; Taking 0.1 as base for approximation it executes 6 calls.
+; Taking 0.1 as base for approximation it executes 5 calls to the p procedure.
 
 (display (sine 12.15))
 (newline)
@@ -48,8 +48,9 @@
 ;
 ; time:
 ;   Angle is in every step reduced three times (r/3) so it must be somehow logarithmic
-;   with the base of 3?
+;   with the base of 3? O(log3(n))
 ;
 ; space:
-;   In every iteration it remembers 2 numbers, so it is linear in the sense of space expansion
-
+;   Every time p is called it has t remember 2 values for future calculation. So it is
+;   2*n for n calls. Since calls are growing logarithmicaly space is as well, just a bit faster
+;
