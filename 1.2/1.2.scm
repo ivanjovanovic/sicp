@@ -151,8 +151,8 @@
         ((= kinds-of-coins 4) 25)
         ((= kinds-of-coins 5) 50)))
 
-; (display (count-change 100))
-; (newline)
+(display (count-change 11))
+(newline)
 ;
 ; This will take a while until it resolves to 292 ways to change 100
 ; with denominations of 50, 25, 10, 5 and 1
