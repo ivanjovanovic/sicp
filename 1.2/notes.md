@@ -65,11 +65,15 @@ consumption will grow.
 
 There are different common patterns of growth. Some of them are:
 
-* O(n) - linearly growing resource consumption with size of the problem
-growth
+* O(1) - constant. Like accessing indexed string
 
-* O(log[n]) - logarithmical growth, which is much better than linear for
-big values of problem size
+* O(n) - linearly growing resource consumption with size of the problem
+growth. For size 1000 we need 1000 steps :(
+
+* O(log[n]) - logarithmic growth, which is much better than linear for
+big values of problem size. For size 1000 we need 16 steps :)
+
+* O(n*log[n]) - linear logarithmic. Still great performance.
 
 * O(n^2) - quadratic, resource consumption grows quadratically with size 
 of the problem

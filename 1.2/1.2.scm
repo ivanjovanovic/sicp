@@ -151,16 +151,64 @@
         ((= kinds-of-coins 4) 25)
         ((= kinds-of-coins 5) 50)))
 
-(display (count-change 11))
-(newline)
+; (display (count-change 11))
+; (newline)
 ;
 ; This will take a while until it resolves to 292 ways to change 100
 ; with denominations of 50, 25, 10, 5 and 1
 
 
+; 1.2.4 Exponantion
+;
+; Linear recursive process for exponantion of number to n-th exponent.
+; b^n = b*b^(n-1), b^0 = 1
+
+(define (expt b n)
+  (if (= n 0)
+      1
+      (* b (expt b (- n 1)))))
+
+; (display (expt 2 3))
+; (newline)
+;
+; This can be implemented as linearly iterative process as well, with
+; help of one more variable to transfer current state to next round
+;
+
+(define (expt b n)
+  (expt-iter b n 1))
+
+(define (expt-iter b count product)
+  (if (= count 0)
+      product
+      (expt-iter b (- count 1) (* product b))))
 
 
+; (display (expt 2 32))
+; (newline)
+;
+; This version is time-wise linear O(n) and space-wise constant O(1)
+; But that means for calculating b^1000 it will take 1000 steps to
+; calculate the number.
+;
+; We can do better than this with following algoithm which is based on
+; general approach to half the size of the problem on every iteration.
+;
+; b^n = (b^(n/2))^2 - if n is even
+; b^n = b * b^(n-1) - if n is odd
+;
 
+(define (even? n)
+  (= (reminder n 2) 0))
+
+(define (fast-expt b n)
+  (cond ((= n 0) 1)
+        ((even? n) (square (fast-expt b (/ n 2))))
+        (else (* b (fast-expt b (- n 1))))))
+
+
+(display (expt 2 33))
+(newline)
 
 
 
