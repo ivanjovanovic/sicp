@@ -44,4 +44,40 @@ time.
 
 ## Tree recursion
 
-Common pattern of recursive computation.
+Common pattern of recursive computation. It is usually characterized by
+lot of redundant computations. If, for example, we take default
+recursive approach of computing Fibonacci sequence and construct the
+tree of the recursion we can immediately see how sub-optimal that
+computation is. Despite that, it is very easy to reason about this kind
+of process and therefore it is used for exploring and explanations all
+the way around.
+
+## Orders of growth
+
+If we define size of input parameter as size of the problem (i.e. n-th
+number of Fibonacci sequence, or angle of sine function). Then we can
+calculate how much resources in time and space will our algorithm take
+for that size.
+
+If we set size to very big, we can see how time and space will evolve
+while we increase the size of the problem. In fact how resource
+consumption will grow.
+
+There are different common patterns of growth. Some of them are:
+
+* O(n) - linearly growing resource consumption with size of the problem
+growth
+
+* O(log[n]) - logarithmical growth, which is much better than linear for
+big values of problem size
+
+* O(n^2) - quadratic, resource consumption grows quadratically with size 
+of the problem
+
+* O(k^n) - exponential, resource consumption grows exponentially. You 
+don't want this for any bigger number.
+
+* O(n!) - factorial one, yaiks!
+
+[see more](http://introcs.cs.princeton.edu/java/41analysis/)
+
