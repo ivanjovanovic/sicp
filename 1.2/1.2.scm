@@ -199,7 +199,7 @@
 ;
 
 (define (even? n)
-  (= (reminder n 2) 0))
+  (= (remainder n 2) 0))
 
 (define (fast-expt b n)
   (cond ((= n 0) 1)
