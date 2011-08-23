@@ -20,15 +20,7 @@
 ; --------------------------------
 ;  First we define needed auxillary procedures
 
-(define (double x)
-  (* x 2))
-
-(define (halve x)
-  (/ x 2))
-
-(define (even? n)
-  (= (remainder n 2) 0))
-
+(load "common.scm")
 
 ; Recursive procedure which halves the problem size in every new call have
 ; logarithmic order of growth
