@@ -19,8 +19,7 @@
 ; we can write following procedure.
 ;
 
-(define (square x)
-  (* x x))
+(load "common.scm")
 
 (define (expt b n)
   (fast-expt b n 1))
@@ -30,6 +29,6 @@
           ((even? n) (fast-expt (square b) (/ n 2) product))
           (else (fast-expt b (- n 1) (* product b)))))
 
-(display (expt 2 30))
-(newline)
+; (display (expt 2 30))
+; (newline)
 
