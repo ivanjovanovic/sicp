@@ -38,6 +38,8 @@
 ; p' = p^2 + q^2
 ; q' = 2pq + q^
 ;
+; @see http://www.kendyck.com/archives/2005/05/13/solution-to-sicp-exercise-119/
+;
 ; when replaced the solution is following.
 ;
 

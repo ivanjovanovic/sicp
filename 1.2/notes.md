@@ -85,3 +85,8 @@ don't want this for any bigger number.
 
 [see more](http://introcs.cs.princeton.edu/java/41analysis/)
 
+## Remarks on going logarithmic
+
+Several examples, related to orders of growth, show how to improve the
+behavior of the algorithm just by understanding that breaking the
+problem on half in every iteration will lead to logarithmic behavior.
