@@ -29,18 +29,18 @@
 ;
 ; Converted to iterative algorithm that looks like this.
 ;
-; We reuse expt function from the exercise 1.16
+; I reuse expt function from the exercise 1.16 which is loaded
 
 (define (mult a b)
   (fast-mult a b 0 0))
 
 (define (fast-mult a b product counter)
   (cond ((= a 0) product)
-        ((= (remainder a 2) 1) (fast-mult (floor (/ a 2)) b (+ product (* (expt 2 counter) b)) (+ counter 1)))
-        (else (fast-mult (floor (/ a 2)) b product (+ counter 1)))))
+        ((= (remainder a 2) 1) (fast-mult (div a 2) b (+ product (* (expt 2 counter) b)) (+ counter 1)))
+        (else (fast-mult (div a 2) b product (+ counter 1)))))
 
-; (display (mult 128765 134567))
-; (newline)
+(display (mult 120 13))
+(newline)
 ;
 ; Here, instead of continuously adding a times we halve the size of the problem in every iteration.
 ; Therefore the number of steps of the algorithm grow logaritmicaly with the size of the problem.
