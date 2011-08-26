@@ -75,15 +75,22 @@ end
 
 global_env = set_global_env
 
-# applicative order of evaluation is done in two steps
-# 1. Fetch the procedure to be evaluated
-# 2. Evaluate arguments for the fetched procedure
+
+# applicative order of evaluation is done in the following steps
+# 1. Evaluate procedure (operator)
+# 2. Evaluate all the operands
+# 3. Apply procedure (operator) to operands
 #
 # @see http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-10.html#%_sec_1.1.5
 def applicative_eval(parse_tree, env = global_env)
 
 end
 
+# Normal order evaluation is done in the following steps
+# 1. Evaluate procedure (operator)
+# 2. Apply procedure without evaluating the operands
+# 3. Evaluate provided operands only when they are needed by ome
+#    primitive operation.
 def normal_eval(parse_tree, env = global_env)
 
 end
