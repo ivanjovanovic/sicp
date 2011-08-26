@@ -22,10 +22,13 @@ My goal is to
 
 ### Process
 
-Since my primary goal is not to learn Lisp or any of its derivatives I
-use [Heist](https://github.com/jcoglan/heist) Scheme interpreter
+I use [Heist](https://github.com/jcoglan/heist) Scheme interpreter
 written in Ruby which should be sufficient for development of the
 excercises given in the book. I use Vim for and IDE.
+
+Also I use [Racket](http://racket-lang.org/) for deeper debugging and
+analysis of the problems.
+
 
 Usually I go this way through the material:
   1. Watch the video lecture, or the part of it while taking notes
