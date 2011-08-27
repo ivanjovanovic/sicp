@@ -83,6 +83,9 @@ don't want this for any bigger number.
 
 * O(n!) - factorial one, yaiks!
 
+For graphing these functions, so it can be visualy compared use: 
+http://rechneronline.de/function-graphs/
+
 [see more](http://introcs.cs.princeton.edu/java/41analysis/)
 
 ## Remarks on going logarithmic

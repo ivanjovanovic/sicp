@@ -86,3 +86,47 @@
 ; evaluate result as well
 ;
 ; Number of executions 1 + 2 + 4 + 7 + 4 = 18
+;
+
+; ------------------------------------------------
+; Applicative order of evaluation:
+;   In this case operands are evaluated previous to being passed to the
+;   procedure for evaluation. Therefore it looks like this for the given
+;   problem.
+;
+; (gc 206 40)
+; 
+; checks condition
+; (if (= 40 0) 206)
+;
+; next iteration
+; (gcd 40 (remainder 206 40)) -> evaluates to (gcd 40 6) with 1 call to remainder
+; (gcd 40 6)
+;
+; checks condition
+; (if (= 6 0) 40)
+;
+; next iteration
+; (gcd 6 (remainder 40 6)) -> evaluates to (gcd 6 4) with 1 call
+; (gcd 6 4)
+;
+; checks condition
+; (if (= 4 0) 6)
+;
+; next iteration
+; (gcd 4 (remainder 6 4)) -> evaluates to (gcd 4 2) with 1 call
+; (gcd 4 2)
+;
+; checks condition
+; (if (= 2 0) 4)
+;
+; next iteration
+; (gcd 2 (remainder 4 2)) -> evaluates to (gcd 2 0) with 1 call
+; (gcd 2 0)
+;
+; checks condition
+; (if (= 0 0) 2)
+;
+; prints 2 as GCD of numbers 206 and 40
+;
+; Therefore we had 4 calls to remainder procedure.

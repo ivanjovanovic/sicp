@@ -5,6 +5,9 @@
 ;
 ; This can be recursivelly defined and executed like this
 ;
+
+(load "common.scm")
+
 (define (factorial n)
   (if (= n 1)
       1
@@ -207,9 +210,67 @@
         (else (* b (fast-expt b (- n 1))))))
 
 
-(display (expt 2 33))
-(newline)
+; (display (expt 2 33))
+; (newline)
 
+; 1.2.6 Testing for primality
+;
+; Searching for primary number naturally comes with the idea to find all
+; divisors and then check of there are only two of them. Using some
+; helper math which says, if n is not prime it must have a divisor
+; less than or equal to n, we can write O(sqrt(n)) method for testing for primality.
+;
+(define (divides? a b)
+  (= (remainder b a) 0))
+
+(define (smallest-divisor n)
+  (find-divisor n 2))
+
+(define (find-divisor n test-divisor)
+  (cond ((> (square test-divisor) n) n)
+        ((divides? test-divisor n) test-divisor)
+        (else (find-divisor n (+ test-divisor 1)))))
+
+(define (prime? n)
+  (= n (smallest-divisor n)))
+
+; Another way to implement test for primality is by implementing
+; Fermat's Little theorem which is
+;
+; Fermat's Little Theorem: If n is a prime number and a is any
+; positive integer less than n, then a raised to the nth power is congruent to a modulo n.
+;
+; To implement the Fermat test, we need a procedure that computes the exponential of a number modulo another number:
+
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (square (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m))))
+
+; based on this Fermat test is
+
+(define (fermat-test n)
+  (define (try-it a)
+    (= (expmod a n n) a))
+  (try-it (+ 1 (random (- n 1)))))
+
+; (display (fermat-test 12323))
+; (newline)
+
+; This test is probabilistic and can be fooled so we can execute several
+; times to prove it with different values for a.
+
+(define (fast-prime? n times)
+  (cond ((= times 0) true)
+        ((fermat-test n) (fast-prime? n (- times 1)))
+        (else false)))
+
+; (display (fast-prime? 1232312323 10))
+; (newline)
 
 
 
