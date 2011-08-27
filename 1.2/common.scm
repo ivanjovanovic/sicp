@@ -16,4 +16,7 @@
 (define (div a b)
   (floor (/ a b)))
 
+(define (divides? a b)
+  (= (remainder b a) 0))
+
 
