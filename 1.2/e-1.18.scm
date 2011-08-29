@@ -5,7 +5,7 @@
 ; and halving and uses a logarithmic number of steps.
 ;
 
-(load "common.scm")
+(load "../common.scm")
 (load "e-1.16.scm")
 
 ; We can do this by implementing so called Russian peasants method of multiplication.

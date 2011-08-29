@@ -43,7 +43,7 @@
 ; when replaced the solution is following.
 ;
 
-(load "common.scm")
+(load "../common.scm")
 
 (define (fib n)
   (fib-iter 1 0 0 1 n))

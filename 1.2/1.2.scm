@@ -6,7 +6,7 @@
 ; This can be recursivelly defined and executed like this
 ;
 
-(load "common.scm")
+(load "../common.scm")
 
 (define (factorial n)
   (if (= n 1)

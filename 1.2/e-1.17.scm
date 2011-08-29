@@ -20,7 +20,7 @@
 ; --------------------------------
 ;  First we define needed auxillary procedures
 
-(load "common.scm")
+(load "../common.scm")
 
 ; Recursive procedure which halves the problem size in every new call have
 ; logarithmic order of growth

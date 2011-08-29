@@ -19,7 +19,7 @@
 ; we can write following procedure.
 ;
 
-(load "common.scm")
+(load "../common.scm")
 
 (define (expt b n)
   (fast-expt b n 1))

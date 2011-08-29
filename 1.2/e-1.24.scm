@@ -5,7 +5,7 @@
 ; growth, how would you expect the time to test primes near 1,000,000 to compare with the time
 ; needed to test primes near 1000? Do your data bear this out? Can you explain any discrepancy you find?
 
-(load "common.scm")
+(load "../common.scm")
 (load "1.2.scm")
 
 ; Copy paste from 1.22 to be reused here without interference

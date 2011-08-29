@@ -13,7 +13,7 @@
 ; and how do you explain the fact that it is different from 2?
 ;
 
-(load "common.scm")
+(load "../common.scm")
 (load "1.2.scm")
 
 ; define method to pick only odd ones

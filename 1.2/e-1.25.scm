@@ -14,7 +14,7 @@
 ; To recall to the expmod which is already defined.
 ;
 
-(load "common.scm")
+(load "../common.scm")
 (load "1.2.scm")
 
 
