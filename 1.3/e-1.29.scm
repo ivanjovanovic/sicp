@@ -84,5 +84,5 @@
 ; you don't figure out the way to organize equation so it shows clearly how to reuse the abstraction. If you don't
 ; set it properly you end up writing new SUM procedure and introducing complexity where it is not needed to be 
 ; introduced. Otherwise you just reuse what is given. According to the 
-; "Great coders code, best coders reuse" :)
+; "Good coders code, great reuse" :)
 
