@@ -17,6 +17,8 @@
 ;    a recursive process.
 ; ----------------------------------
 
+(load "../common.scm")
+
 (define (accumulate combiner null-value term a next b)
   (if (> a b)
     null-value
@@ -28,7 +30,6 @@
 (define (product term a next b)
   (accumulate * 1 term a next b))
 
-(define (identity x) x)
 (define (next x) (+ x 1))
 
 (define (sum-ints a b)

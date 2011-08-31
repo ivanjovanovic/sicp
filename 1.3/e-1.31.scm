@@ -19,7 +19,7 @@
 
 (load "../common.scm")
 
-definition of the product
+; definition of the product
 (define (product term a next b)
   (if (> a b)
       1

@@ -14,10 +14,10 @@
 ;
 ; Iterative procedure for calculating GCD of two numbers
 ;
-; (define (gcd a b)
-;   (if (= b 0)
-;       a
-;       (gcd b (remainder a b))))
+(define (gcd a b)
+  (if (= b 0)
+      a
+      (gcd b (remainder a b))))
 ;
 ;----------------------------------------------
 ;

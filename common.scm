@@ -22,4 +22,5 @@
 (define (divides? a b)
   (= (remainder b a) 0))
 
+(define (identity x) x)
 
