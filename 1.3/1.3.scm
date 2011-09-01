@@ -106,3 +106,64 @@
 ; gets to stack level to deep error in Heist, in DrRacket works with a bit more precision
 ; (display (integral cube 0 1 0.001))
 ; (newline)
+;
+;
+; 1.3.2 Using lambda defined anonymous functions
+;
+; Not all the functions have to be given a name. They can be defined as one purpose abstractions
+; using lambda notation. For example this
+
+(define next (lambda (x) (+ x 1)))
+
+; defines procedure `next` with one argument x, as we have previously defined it
+;
+; pi-sum can be redefined using lambda notation as
+
+(define (lambda-pi-sum a b)
+  (sum 
+    (lambda (x) (/ 1.0 (* x (+ x 2))))
+    a
+    (lambda (x) (+ x 4))
+    b))
+
+; (display (lambda-pi-sum 1 1000)) ; converges slowly towards pi/8
+; (newline)
+
+; Lambdas can be used to create local variables. For example, function
+;
+; f(x,y) = x(1 + xy)^2 + y(1 - y) + (1 + xy)(1 - y)
+;
+; can be written as
+;
+; a = 1 + xy
+; b = 1 - y
+;
+; f(x, y) = xa^2 + yb + ab
+;
+; so we have here a need to define a and b and to use them in newly structured function f
+
+; here lambda defines inline compound procedure which uses a and b as local variables, and variables are passed
+; as arguments inline
+
+(define (f x y)
+  ((lambda (a b)
+     (+
+       (* x (square a))
+       (* y b)
+       (* a b)))
+   (+ 1 (* x y))
+   (- 1 y)))
+
+; This concept is very useful so special construct named `let` is defined to make it more expressive.
+; By using it we can define function f as
+
+(define (f x y)
+  (let ((a (+ 1 (* x y)))
+        (b (- 1 y)))
+    (+ (* x (square a))
+       (* y b)
+       (* a b))))
+
+; (display (f 2 3))
+; (newline)
+
