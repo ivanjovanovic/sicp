@@ -24,3 +24,9 @@
 
 (define (identity x) x)
 
+(define close-enough?
+  (lambda (a b delta) (< (abs (- a b)) delta)))
+
+(define (average x y)
+  (/ (+ x y) 2.0))
+

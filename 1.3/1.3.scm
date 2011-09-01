@@ -167,3 +167,75 @@
 ; (display (f 2 3))
 ; (newline)
 
+; 1.3.3 Procedures as general methods
+;
+; Halving method for finding roots of the function can be expressed like this:
+; @see http://en.wikipedia.org/wiki/Bisection_method
+
+(define (search f neg-point pos-point delta)
+  (let ((midpoint (average neg-point pos-point)))
+    (if (close-enough? neg-point pos-point delta)
+      midpoint
+      (let ((test-value (f midpoint)))
+        (cond ((positive? test-value)
+               (search f neg-point midpoint delta))
+              ((negative? test-value)
+               (search f midpoint pos-point delta))
+              (else midpoint))))))
+
+; to do some before checking on the conditions by which this algorithm operates
+; we define new procedure
+
+(define (bisection-method f a b)
+  (let ((a-val (f a))
+        (b-val (f b))
+        (delta 0.001))
+    (cond ((and (negative? a-val) (positive? b-val))
+           (search f a b delta))
+          ((and (negative? b-val) (positive? a-val))
+           (search f b a delta))
+          (else
+            (error "Values are not of the opposite sign")))))
+
+(define linear
+  (lambda (x) (+ x 1)))
+
+; (display (bisection-method linear -5 3))
+; (newline)
+
+; (display (bisection-method sin 2.0 4.0))
+; (newline)
+
+; (display (bisection-method
+;            (lambda (x) (- (* x x x) (* 2 x) 3))
+;            1.0
+;            2.0))
+; (newline)
+;
+;
+; Using higher-order functions we can expess a way to find fixed
+; point of a function.
+;
+; A number x is said to be the fixed point of the function f if f(x) = x.
+; Some functions have property to have `attractive` fixed points which can
+; be found by continuously applying function to an argument until value of the
+; function doesn't change that much.
+;
+; f(x), f(f(x)), f(f(f(x))) ...
+
+; Just continuously apply function and check if its value is far from
+; the argument passed to it. If not just update the argument with last
+; result of function evaluation
+(define (fixed-point f first-guess delta)
+  (define (try guess)
+    (let ((next (f guess)))
+      (if (close-enough? guess next delta)
+        next
+        (try next))))
+    (try first-guess))
+
+; (display (fixed-point cos 1.0))
+; (newline)
+
+; (display (fixed-point sin 1.0 0.001))
+; (newline)
