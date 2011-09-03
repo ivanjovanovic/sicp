@@ -27,8 +27,13 @@
 (define close-enough?
   (lambda (a b delta) (< (abs (- a b)) delta)))
 
+; average of 2 values
 (define (average x y)
   (/ (+ x y) 2.0))
+
+; avergae of 3.0
+(define (average-of-3 x y z)
+  (/ (+ x y z) 3.0))
 
 (define (inc x)
   (+ x 1))
