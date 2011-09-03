@@ -30,3 +30,5 @@
 (define (average x y)
   (/ (+ x y) 2.0))
 
+(define (inc x)
+  (+ x 1))
