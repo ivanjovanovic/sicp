@@ -49,3 +49,14 @@ There are two things to be aware of let constructs
   calculates value of `y` not based on x value of 3 but on x value of
   outside procedure.
 
+## Procedures as `first-class` citizens
+
+With the examples implemented in this chapter, it is shown that procedures in Scheme enjoy
+pretty much attention. They can be used in next ways
+
+* They may be named as variables
+* They may be passed as arguments to procedures
+* They may be returned as result of procedure
+* They may be included in data structures
+
+All of this gives us right to call them `first-class citizens` of the Scheme programming

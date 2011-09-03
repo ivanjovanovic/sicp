@@ -239,3 +239,67 @@
 
 ; (display (fixed-point sin 1.0 0.001))
 ; (newline)
+;
+; Sometimes functions themselves are not appropriate to be used
+; for finding their fixed point directly. Then, we try to do
+; average dump of the function by calculating the average of the 
+; function value for some argument x and the argument x itself.
+
+(define (average-dump f)
+  (lambda (x) (average x (f x))))
+
+; One of the functions that is not suitable for usage in fixed-point search
+; is square root of x, sqrt(x). Function is defined as y = sqrt(x), therefore
+; y^2 = x and there comes y = x/y. 
+; Problem is that if we say start with the guess y1 then y2 = x/y1.
+; In second iteration y3 = x/y2 which is y1.
+;
+; So, this function oscilates for standard numerical process. Therefore we introduce
+; avergae dumping to make this process convergent.
+
+(define (sqrt x)
+  (fixed-point (average-dump (lambda (y) (/ x y))) 1.0 0.001))
+
+; (display (sqrt 40))
+; (newline)
+;
+; We can as well define cube-root function this way
+
+(define (cube-root x)
+  (fixed-point (average-dump (lambda (y) (/ x (square y))))
+               1.0
+               0.001))
+
+; (display (cube-root 8))
+; (newline)
+;
+; Newton method of finding roots of the functions is generalized method which states 
+; that solution to the equation g(x) = 0 is fixed point of the function
+;
+; f(x) = x - g(x)/dg(x) ; dg(x) is derivative of g(x)
+;
+; expressing derivate of a function
+;
+
+(define dx 0.0001)
+(define (deriv g)
+  (lambda (x)
+    (/ (- (g (+ x dx)) (g x))
+       dx)))
+
+; (display ((deriv cube) 5))
+; (newline)
+;
+; Now defining Newton function and newtons method
+
+(define (newton-transform g)
+  (lambda (x) (- x (/ (g x) ((deriv g) x)))))
+(define (newtons-method g guess)
+  (fixed-point (newton-transform g) guess 0.0001))
+
+; If we look for solution to sqrt(x) then y^2 = x and y^2 -x = 0 are solutions for given x
+(define (sqrt x)
+  (newtons-method (lambda (y) (- (square y) x)) 1.0))
+
+; (display (sqrt 22))
+; (newline)
