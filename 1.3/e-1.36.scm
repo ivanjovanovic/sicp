@@ -23,13 +23,13 @@
 ; (fixed-point cos 1.0 0.0001)
 
 ; non-averaged fixed point convergense of x^x = 1000
-(display "--------- without averaging")
-(newline)
+; (display "--------- without averaging")
+; (newline)
 
-(fixed-point
-  (lambda (x) (/ (log 1000) (log x)))
-  10.0
-  0.0001)
+; (fixed-point
+;   (lambda (x) (/ (log 1000) (log x)))
+;   10.0
+;   0.0001)
 
 ; Result for this convergence is:
 ; 2.9999999999999996
@@ -62,13 +62,13 @@
 
 
 ; convergence of averaged function
-(display "-------- averaging")
-(newline)
+; (display "-------- averaging")
+; (newline)
 
-(fixed-point
-  (lambda (x) (average x (/ (log 1000) (log x))))
-  10.0
-  0.001)
+; (fixed-point
+;   (lambda (x) (average x (/ (log 1000) (log x))))
+;   10.0
+;   0.001)
 
 ; Result is
 ;
