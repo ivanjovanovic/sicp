@@ -14,11 +14,16 @@
 ;
 ; Iterative procedure for calculating GCD of two numbers
 ;
-(define (gcd a b)
-  (if (= b 0)
-      a
-      (gcd b (remainder a b))))
+; moved to common for reuse by other parts
 ;
+; (define (gcd a b)
+;  (if (= b 0)
+;      a
+;      (gcd b (remainder a b))))
+
+
+(load "../common.scm")
+
 ;----------------------------------------------
 ;
 ; Normal order evaluation:

@@ -39,3 +39,11 @@ should work with them as we already have them, without using their
 details. In that way we will implement usage of it in an abstract way,
 and the way they are really implemented afterwards will not be that
 important anymore.
+
+## Pairs
+
+In Scheme, basic way of combining or `gluing` data together is with
+creating pairs with constructor (cons 1 2), which will construct list of
+numbers (1 2)
+
+
