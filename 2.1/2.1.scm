@@ -63,3 +63,23 @@
 ; side but is correct mathematically.
 ; (print-rat (add-rat one-third one-third))
 
+; one place where we can see that using the abstract representation of
+; the data is hiding the internal details of the implementation is in
+; the case where we want to change the implementation of the
+; normalization of rational numbers to
+
+(define (make-rat n d)
+  (cons n d))
+
+(define (numer x)
+  (let ((g (gcd (car x) (cdr x))))
+    (/ (car x) g)))
+
+(define (denom x)
+  (let ((g (gcd (car x) (cdr x))))
+    (/ (cdr x) g)))
+
+; now instead in make-rat, we do normalization in selectors. There can
+; be ratio behind this decision if we create numbers much more than
+; selecting them.
+
