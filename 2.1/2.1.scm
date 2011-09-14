@@ -51,7 +51,7 @@
 (define one-third (make-rat 1 3))
 
 ; here we see it is not normalized to 2/3 but it shows 6/9
-(print-rat (add-rat one-third one-third))
+; (print-rat (add-rat one-third one-third))
 
 ; we can fix normalization by reimplementing make-rat with
 (define (make-rat n d)
@@ -61,5 +61,5 @@
 ; here we see it is not normalized to 2/3 but it shows 6/9
 ; In heist it represents 2/1/3/1 which is not normalized on the other
 ; side but is correct mathematically.
-(print-rat (add-rat one-third one-third))
+; (print-rat (add-rat one-third one-third))
 
