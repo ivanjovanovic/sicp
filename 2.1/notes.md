@@ -46,4 +46,20 @@ In Scheme, basic way of combining or `gluing` data together is with
 creating pairs with constructor (cons 1 2), which will construct list of
 numbers (1 2)
 
+## What is data?
+
+In general, we can think of data as defined by some collection
+of selectors and constructors, together with specified conditions
+that these procedures must fulfill in order to be a valid
+representation. 
+
+One thing to notice about the definition of the data is that we do not
+explicitely tell anything on content, numbers, strings or some phisical
+data representation. 
+
+  `data abstraction = constructor + selectors + contract`
+
+And therefore, data can be anything. In example of pairs it is set of 
+procedures that behave in a certain way to implement abstraction around
+concept of pairs.
 

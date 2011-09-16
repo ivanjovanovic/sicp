@@ -48,8 +48,8 @@
 (define start (make-point 0 0))
 (define end (make-point 2 2))
 
-(print-point start)
-(print-point end)
+; (print-point start)
+; (print-point end)
 
 ; now we calculate midpoint which itself is a point with calculated
 ; coordinates. It receives segment as param
@@ -59,4 +59,4 @@
     (average (x-point (car s)) (x-point (cdr s)))
     (average (y-point (car s)) (y-point (cdr s)))))
 
-(print-point (mid-point (make-segment start end)))
+; (print-point (mid-point (make-segment start end)))

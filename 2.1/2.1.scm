@@ -83,3 +83,14 @@
 ; be ratio behind this decision if we create numbers much more than
 ; selecting them.
 
+; Taking the definition of data from notes.md we can show that pairs
+; concept is implemendet without data at all, only with procedures.
+
+; So pairs data structure is made purely of procedures
+(define (cons x y)
+  (lambda (z)
+    (cond ((= z 1) x)
+          ((= z 2) y))))
+
+(define (car p) (p 1))
+(define (cdr p) (p 2))
