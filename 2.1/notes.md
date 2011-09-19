@@ -63,3 +63,17 @@ And therefore, data can be anything. In example of pairs it is set of
 procedures that behave in a certain way to implement abstraction around
 concept of pairs.
 
+## On Church numerals
+
+In exercise 2.6 Church numerals are introduced. In everyday software
+engineering and computer science, they are not of some practical
+use. They are used in theoretical CS more often. From the other side
+they explicitely expose the fact that even usual primitive data
+representations as numbers could be represented as higher order
+procedures if language supports them. Usually this is not going to be
+done due to many practical reasons, but just a fact that number can have
+such a different representation is fascinating and mind opening for 
+looking at data in completely different way.
+
+[Church Numerals](http://en.wikipedia.org/wiki/Church_encoding#Church_numerals)
+[Nice blog post and discussion](http://briancarper.net/blog/479/)
