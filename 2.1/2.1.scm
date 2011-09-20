@@ -94,3 +94,31 @@
 
 (define (car p) (p 1))
 (define (cdr p) (p 2))
+
+
+; Interval arithmetic from the section 2.1.4 can be implemented in its basic representation in the 
+; following form with having upper and lower bound of the interval as pair. Consider for now that we
+; have constructor and selectors as predefined
+
+(define (add-interval x y)
+  (make-interval 
+    (+ (lower-bound x) (lower-bound y))
+    (+ (upper-bound x) (upper-bound y))))
+
+; multiplication are all combinations of products of bounds with new interval
+; by picking lowest and highest of product combinations
+(define (mul-interval x y)
+  (let 
+    ((p1 (* (lower-bound x) (lower-bound y)))
+     (p2 (* (lower-bound x) (upper-bound y)))
+     (p3 (* (upper-bound x) (lower-bound y)))
+     (p4 (* (upper-bound x) (upper-bound y))))
+    (make-interval 
+      (min p1 p2 p3 p4)
+      (max p1 p2 p3 p4))))
+
+(define (div-interval x y)
+  (mul-interval
+    x
+    (make-interval (/ 1.0 (lower-bound y))
+                   (/ 1.0 (upper-bound y)))))
