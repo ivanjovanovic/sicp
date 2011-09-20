@@ -99,6 +99,7 @@
 ; Interval arithmetic from the section 2.1.4 can be implemented in its basic representation in the 
 ; following form with having upper and lower bound of the interval as pair. Consider for now that we
 ; have constructor and selectors as predefined
+; http://en.wikipedia.org/wiki/Interval_arithmetic
 
 (define (add-interval x y)
   (make-interval 
