@@ -23,8 +23,8 @@
        (center i))))
 
 ; now lets test a bit this
-(display (percent (make-center-percent 10 10))) ; returns 10
-(newline)
+; (display (percent (make-center-percent 10 10))) ; returns 10
+; (newline)
 
-(display (percent (make-center-width 10 1))) ; returns 10
-(newline)
+; (display (percent (make-center-width 10 1))) ; returns 10
+; (newline)
