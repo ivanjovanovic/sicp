@@ -123,3 +123,17 @@
     x
     (make-interval (/ 1.0 (lower-bound y))
                    (/ 1.0 (upper-bound y)))))
+
+; Interval can be represented as well with pair of different values, center and width of the
+; interval.
+
+(define (make-center-width c w)
+  (make-interval (- c w) (+ c w)))
+
+(define (center i)
+  (average (upper-bound i) (lower-bound i)))
+
+(define (width i)
+  (/ (- (upper-bound i) (lower-bound i)) 2))
+
+; This way it can be defined as c ± w (i.e. 3.5 ± 0.15)
