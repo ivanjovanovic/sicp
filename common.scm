@@ -43,3 +43,5 @@
       a
       (gcd b (remainder a b))))
 
+; define nil as empty list.
+(define nil '())
