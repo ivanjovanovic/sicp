@@ -36,3 +36,30 @@ One technique to walk through the list is `cdr-ing down` the list.
 Other technique is to `cons up` the resulting list while `cdr-ing down`
 given input list.
 
+### Mapping over lists
+
+One of basic operations is to apply certain transformation to all
+elements of the list.
+
+Introducing `map` abstraction is very good example of how adding layers
+of abstraction moves our thining into different directions. If we take
+example of scaling list of items as 
+
+  (define (scale-elements items factor)
+    (if (null? items)
+      nil
+      (cons (* (car items) factor) (scale-elements (cdr items) factor))))
+
+and with map abstraction with
+
+  (define (scale-elements items factor)
+    (map (lambda (x) (* x factor))
+         items))
+
+we can see that in second case we don't have to think about the details
+of impemenatation of scale-elements procedure since map is well
+understood abstaraction which stands in front of all the details of
+implementation.
+
+
+

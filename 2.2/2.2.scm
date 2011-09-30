@@ -23,6 +23,9 @@
 ; technique called `cdr-ing down` the list.
 ; Like in this example in which we just return n-th element of the list
 
+(load "../helpers.scm")
+(load "../common.scm")
+
 (define (list-ref items n)
   (if (= n 0)
     (car items)
@@ -63,3 +66,28 @@
 
 ; this corerctly shows (1 2 3 4 5 6 7 8)
 ; (display (append (list 1 2 3 4) (list 5 6 7 8)))
+
+
+; ### Mapping over list
+
+; one example of applying a procedure over all elements of the list is to scale
+; all the elements. We will `cons-up` the result while `cdr-ing` down the elements
+
+(define (scale-elements items factor)
+  (if (null? items)
+    nil
+    (cons (* (car items) factor) (scale-elements (cdr items) factor))))
+
+(output (scale-elements (list 1 2 3 4) 10))
+
+; this can be abstracted as general mapping function
+
+(define (map proc items)
+  (if (null? items)
+    nil
+    (cons (proc (car items))
+          (map proc (cdr items)))))
+
+; some examples of mapping functions
+(output (map (lambda (x) (+ x 1)) (list 1 2 3 4 5)))
+(output (map abs (list -10 -12.5 12 99 0)))
