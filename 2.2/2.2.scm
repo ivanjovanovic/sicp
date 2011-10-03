@@ -91,3 +91,22 @@
 ; some examples of mapping functions
 (output (map (lambda (x) (+ x 1)) (list 1 2 3 4 5)))
 (output (map abs (list -10 -12.5 12 99 0)))
+
+
+; Hierarhical data structures
+;
+
+; defining small hierarchy by using pair of lists
+(define small-tree (cons (list 1 2) (list 3 4)))
+
+; getting length
+(output (length small-tree))
+
+; recursively we can compute number of leaves in the tree
+(define (count-leaves tree)
+  (cond ((null? tree) 0)
+        ((not (pair? tree)) 1)
+        (else (+ (count-leaves (car tree))
+                 (count-leaves (cdr tree))))))
+
+(output (count-leaves small-tree)) ; 4 leaves overall

@@ -61,5 +61,23 @@ of impemenatation of scale-elements procedure since map is well
 understood abstaraction which stands in front of all the details of
 implementation.
 
+## Hierarchical structures
 
+As we can represent sequences of numbers we can similarly represent
+sequences of sequences. For example (cons (list 1 2) (list 3 4))
+represents pair of lists. Alhtough printed as ((1 2) 3 4), if we
+represent it a bit differently we can see its hierarchical nature
 
+             ((1 2) 3 4)
+                /    |\
+               /     | \
+        (1 2) /|     |  \
+             / |     |   \
+            1  2     3    4
+
+This looks like representation of the kind of tree. In fact,
+hierarchical data representation is used to represent so called `tree`
+data structures most often.
+
+Trees have `length` and `number of leaves` properties among the others.
+Recursion is natural way of dealing with these data structures.
