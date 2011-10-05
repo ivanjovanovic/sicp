@@ -18,3 +18,13 @@
 
 ; gives expected result (() (3) (2) (2 3) (1) (1 3) (1 2) (1 2 3))
 (output (subsets (list 1 2 3)))
+
+; The recursive algorithm that is implemented here can be explained in
+; following way suitable for recursive implementation:
+;
+; To list all the subsets of the definite set you need
+; 1. All the subsets of a given set without a certain element
+; 2. You have to add to this all the subsets from point 1
+;    but with that element added to the sets.
+;
+; More on this is written: http://en.wikipedia.org/wiki/Power_set#Algorithms
