@@ -81,3 +81,35 @@ data structures most often.
 
 Trees have `length` and `number of leaves` properties among the others.
 Recursion is natural way of dealing with these data structures.
+
+### Mapping over trees
+
+As trees are one of basic data structures, mapping over them is one of
+the most basic operations.
+
+On example of factoring all the leaves of the tree we can show how
+mapping on trees works
+
+(define (scale-tree tree factor)
+  (cond ((null? tree) nil)
+        ((not (pair? tree)) (* tree factor))
+        (else (cons (scale-tree (car tree) factor)
+                    (scale-tree (cdr tree) factor)))))
+
+(scale-tree 
+  (list 1 (list 2 (list 3 4) 5) (list 6 7)) 
+  10) -> (10 (20 (30 40) 50) (60 70))
+
+Another way to implement scale-tree is to regard the tree as a sequence of
+sub-trees and use map. We map over the sequence, scaling each sub-tree in turn,
+and return the list of results. In the base case, where the tree is a leaf, we
+simply multiply by the factor:
+
+(define (scale-tree tree factor)
+  (map (lambda (sub-tree)
+         (if (pair? sub-tree)
+             (scale-tree sub-tree factor)
+             (* sub-tree factor)))
+       tree))
+
+Many tree operations can be implemented by similar combinations of sequence operations and recursion.
