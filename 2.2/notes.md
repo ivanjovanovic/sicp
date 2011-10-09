@@ -113,3 +113,31 @@ simply multiply by the factor:
        tree))
 
 Many tree operations can be implemented by similar combinations of sequence operations and recursion.
+
+## Sequences as conventional interfaces
+
+Lot of examples in designing software comprise of sequence of operation
+that have to be executed one after each other in order to fullfil the
+goal. Or at least, software can be organized that way. Easiest is to
+compare with engineering approach to designing signal processing system:
+
+  --------     --------     --------    --------
+  |enumer.|    |filter.|    |  map  |   |accumu.|
+  |       | -- | odd?  | -- |square |-- | +, *  |
+  |       |    |       |    |       |   |       |
+  --------     --------     --------    --------
+
+in these systems signal is a common carrier of the data, and it flows
+through the processing blocks giving an desired output after the last
+block.
+
+Complex software operations can be broken into blocks that operate on
+this signal. This way we get general reusable blocks of software, and a
+conventional interface between these blocks.
+
+In Scheme lists are used as data carriers and conventional interfaces.
+Block functions can be many, mapping, filtering, accumulating ...
+
+Conslusion is that we can encourage flexible and modular designs by
+bulding intedpented blocks that communicate over conventional
+interfaces.

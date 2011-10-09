@@ -62,6 +62,6 @@
                         q
                         (- count 1)))))
 
-(display (fib 40))
-(newline)
+; (display (fib 40))
+; (newline)
 
