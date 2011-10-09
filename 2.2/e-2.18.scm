@@ -4,6 +4,7 @@
 ; Example: (reverse (list 1 4 9 16 25)) -> (25 16 9 4 1)
 ; ----------------------------------------------------
 
+(load "../helpers.scm")
 (load "../common.scm")
 
 ; For me, this would be the natural way of doing it
@@ -14,7 +15,7 @@
     (car items)
     (cons (reverse (cdr items)) (car items))))
 
-(display (reverse (list 1 2 3 4))) ; -> (((4 . 3) . 2) . 1)
+(output (reverse (list 1 2 3 4))) ; -> (((4 . 3) . 2) . 1)
 
 ; If we want proper representation of the list we have to 
 ; use helper method append and work with the lists
@@ -23,7 +24,7 @@
     (list (car items))
     (append (reverse (cdr items)) (list (car items)))))
 
-(display (reverse (list 1 4 9 16 25))) ; -> (25 16 9 4 1)
+(output (reverse (list 1 4 9 16 25))) ; -> (25 16 9 4 1)
 
 ; at the end it can be done a bit simpler but with one more recursion
 ; call
@@ -32,4 +33,4 @@
     nil
     (append (reverse (cdr items)) (list (car items)))))
 
-(display (reverse (list 1 4 9 16 25))) ; -> (25 16 9 4 1)
+(output (reverse (list 1 4 9 16 25))) ; -> (25 16 9 4 1)

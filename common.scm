@@ -45,3 +45,49 @@
 
 ; define nil as empty list.
 (define nil '())
+
+;;;; standard sequence procedures
+
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+    initial
+    (op (car sequence) 
+        (accumulate op initial (cdr sequence)))))
+
+(define (filter predicate sequence)
+  (cond ((null? sequence) nil)
+        ((predicate (car sequence))
+         (cons (car sequence) (filter predicate (cdr sequence))))
+        (else (filter predicate (cdr sequence)))))
+
+(define (enumerate-leaves tree)
+  (cond ((null? tree) nil)
+        ((not (pair? tree)) (list tree))
+        (else (append (enumerate-leaves (car tree))
+                      (enumerate-leaves (cdr tree))))))
+
+(define (enumerate-interval low high)
+  (if (> low high)
+    nil
+    (cons low (enumerate-interval (+ low 1) high))))
+
+(define (accumulate-n op init seqs)
+  (if (null? (car seqs))
+      nil
+      (cons (accumulate op init (map car seqs)) ; get cars of every list inside
+            (accumulate-n op init (map cdr seqs))))) ; proceed with cadrs in next recursion
+
+; Folding to left and right are standard operations
+(define (fold-left op initial sequence)
+  (define (iter result rest)
+    (if (null? rest)
+        result
+        (iter (op result (car rest))
+              (cdr rest))))
+  (iter initial sequence))
+
+; folding right is the standard accumulation
+(define fold-right accumulate)
+
+(define (reverse sequence)
+  (fold-right (lambda (x y) (append y (list x))) nil sequence))
