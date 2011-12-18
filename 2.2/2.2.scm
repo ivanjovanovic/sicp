@@ -26,6 +26,7 @@
 (load "../helpers.scm")
 (load "../common.scm")
 (load "../1.2/e-1.19.scm") ; here we have Fib(n) in log(n) time complexity
+(load "../1.2/1.2.scm")
 
 (define (list-ref items n)
   (if (= n 0)
@@ -236,3 +237,67 @@
                   (enumerate-interval 0 n))))
 
 ; (output (fib-squares 10))
+
+; Generating all the pairs where 1 <= j < i <= n
+
+(define (generate-pairs n)
+  (accumulate append
+              nil
+              (map (lambda (i) 
+                     (map (lambda (j) (list i j))
+                          (enumerate-interval 1 (- i 1))))
+                   (enumerate-interval 1 n))))
+
+; (output (generate-pairs 10))
+
+; This can be generalized as function because this combination is often used
+
+(define (flatmap proc seq)
+  (accumulate append nil (map proc seq)))
+
+; define filter which tells if sum of the pair is prime
+;
+; here I use for the first time cadr which is pulling only second 
+; element from the list while unboxing it from the list structure itself
+
+(define (prime-sum? pair)
+  (prime? (+ (car pair) (cadr pair))))
+
+; (output (prime-sum? (list 1 2)))
+
+; Then we can define making of new list which contains sum as well
+
+(define (make-pair-sum pair)
+  (list (car pair) (cadr pair) (+ (car pair) (cadr pair))))
+
+; (output (make-pair-sum (list 1 2))) ; (1 2 3)
+
+; Now we can make list of pairs which have sum as primes
+
+(define (prime-sum-pairs n)
+  (map make-pair-sum
+       (filter prime-sum?
+               (flatmap (lambda (i)
+                          (map (lambda (j) (list i j))
+                               (enumerate-interval 1 (- i 1))))
+                        (enumerate-interval 1 n)))))
+
+; (output (prime-sum-pairs 10))
+
+; defining all the permutation of the set
+
+(define (permutations s)
+  (if (null? s)
+    (list nil)
+    (flatmap (lambda (x)
+               (map (lambda (p) (cons x p))
+                    (permutations (remove x s))))
+             s)))
+
+; remove can be defined as simple filter that excludes given element
+
+(define (remove item sequence)
+  (filter (lambda (x) (not (= x item)))
+          sequence))
+
+; (output (permutations (list 1 2 3)))

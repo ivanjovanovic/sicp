@@ -141,3 +141,24 @@ Block functions can be many, mapping, filtering, accumulating ...
 Conslusion is that we can encourage flexible and modular designs by
 bulding intepented blocks that communicate over conventional
 interfaces.
+
+# Nested mappings
+
+Using previously introduced concept of sequences as conventianal
+interfaces we can do computations that usually involve nested loops. One
+example is finding all distinct positive integers i and j where 
+`1 <= j < i <= n` and `i + j` is a prime. For n equals 6 we have following
+table
+
+  i | 2 3 4 4 5 6 6
+  j | 1 2 1 3 2 1 5
+  -----------------
+  + | 3 5 5 7 7 7 11
+
+Here we do it by generating all possible pairs and then filtering out
+only one that satisfy the given condition. The pair generation part is
+defined in the next procedure. So we can say that with nested mappings
+we can operate on a 2D space with the points in the plane.
+
+In the same logic we could operate on the 3D space if we would have 3
+level nesting of the mappings.
