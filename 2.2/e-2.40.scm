@@ -17,7 +17,7 @@
                   (enumerate-interval 1 (- i 1))))
            (enumerate-interval 1 n)))
 
-; (output (unique-pairs 10))
+(output (unique-pairs 10))
 
 ; by using this procedure prime sum of pairs looks pretty
 ; straightforward
