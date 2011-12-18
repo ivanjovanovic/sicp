@@ -139,5 +139,5 @@ In Scheme lists are used as data carriers and conventional interfaces.
 Block functions can be many, mapping, filtering, accumulating ...
 
 Conslusion is that we can encourage flexible and modular designs by
-bulding intedpented blocks that communicate over conventional
+bulding intepented blocks that communicate over conventional
 interfaces.
