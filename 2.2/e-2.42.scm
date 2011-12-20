@@ -97,37 +97,19 @@
 (define (same-upper-diagonal? k position rest-of-positions)
   (not 
     (null? 
-      (flatmap (lambda (diagonal-position)
-             (filter (lambda (rest-position)
-                       (and (= (car diagonal-position) (car rest-position))
-                            (= (cadr diagonal-position) (cadr rest-position))))
-                     rest-of-positions))
-           (enumerate-upper-diagonal k position)))))
+       (filter (lambda (rest-position)
+                 (= (cadr rest-position) (+ (- (cadr position) (car position)) (car rest-position))))
+               rest-of-positions))))
 
 (define (same-lower-diagonal? k position rest-of-positions)
-  (output rest-of-positions)
   (not 
     (null? 
-      (flatmap (lambda (diagonal-position)
-             (filter (lambda (rest-position)
-                       (and (= (car diagonal-position) (car rest-position))
-                            (= (cadr diagonal-position) (cadr rest-position))))
-                     rest-of-positions))
-           (enumerate-lower-diagonal k position)))))
-
-(define (enumerate-upper-diagonal k position)
-  (map (lambda (row)
-         (list row (+ (- (cadr position) (car position)) row)))
-       (enumerate-interval 1 (- (car position) 1))))
-
-(define (enumerate-lower-diagonal k position)
-  (output k position)
-  (map (lambda (row)
-         (list row (+ (- (cadr position) row) (car position))))
-       (enumerate-interval (+ (car position) 1) k)))
+       (filter (lambda (rest-position)
+                 (= (cadr rest-position) (+ (- (cadr position) (car rest-position)) (car position))))
+               rest-of-positions))))
 
 ; (output (adjoin-position 2 3 (list)))
-; (output (queens 4))
+(output (queens 6))
 ; (output (same-lower-diagonal? 3 (list 3 3) (list (list 4 2))))
 ; (output (enumerate-upper-diagonal 4 (list 3 4)))
-(output (enumerate-lower-diagonal 3 (list 3 3)))
+; (output (enumerate-lower-diagonal 3 (list 3 3)))
