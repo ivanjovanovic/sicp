@@ -2,7 +2,7 @@
 
 ; The ``eight-queens puzzle'' asks how to place eight queens on a
 ; chessboard so that no queen is in check from any other 
-; (i.e., no two queens are in the same row, column, or diagonal).
+; (i.e., no two queens are in the collides row, column, or diagonal).
 ; One possible solution is shown in figure 2.8. One way to solve the
 ; puzzle is to work across the board, placing a queen in each column. Once
 ; we have placed k - 1 queens, we must place the kth queen in a position
@@ -24,7 +24,7 @@
 ; board.
 
 (define (queens board-size)
-  (define (queen-cols k)  
+  (define (queen-cols k)
     (if (= k 0)
         (list empty-board)
         (filter
@@ -76,40 +76,42 @@
 ; Here we define filter that checks if k-th queen is placed on the safe
 ; place within the position set, taking that all previous elements of
 ; the set comprise a valid set.
-(define (safe? k positions) ; (= 1 1))
+(define (safe? k positions)
   (if (null? (cdr (car positions)))
     true
-    (not (colides? k (caar positions) (cdr (car positions))))))
+    (not (colides? (caar positions) (cdr (car positions))))))
 
-(define (colides? k position rest-of-positions)
-  (or (same-row? position rest-of-positions)
-      (same-diagonal? k position rest-of-positions)))
+(define (colides? position rest-of-positions)
+  (or (collides-row? position rest-of-positions)
+      (collides-diagonal? position rest-of-positions)))
 
-(define (same-row? position rest-of-positions)
+(define (collides-row? position rest-of-positions)
   (not (null? (filter (lambda (rest-position)
                    (= (car position) (car rest-position)))
                  rest-of-positions))))
 
-(define (same-diagonal? k position rest-of-positions)
-  (or (same-upper-diagonal? k position rest-of-positions)
-      (same-lower-diagonal? k position rest-of-positions)))
+(define (collides-diagonal? position rest-of-positions)
+  (or (collides-upper-diagonal? position rest-of-positions)
+      (collides-lower-diagonal? position rest-of-positions)))
 
-(define (same-upper-diagonal? k position rest-of-positions)
-  (not 
-    (null? 
-       (filter (lambda (rest-position)
-                 (= (cadr rest-position) (+ (- (cadr position) (car position)) (car rest-position))))
-               rest-of-positions))))
+(define (collides-upper-diagonal? position rest-of-positions)
+  (not (null? 
+         (filter (lambda (rest-position)
+                   (= (cadr rest-position)
+                      (+ (- (cadr position) (car position))
+                         (car rest-position))))
+                 rest-of-positions))))
 
-(define (same-lower-diagonal? k position rest-of-positions)
-  (not 
-    (null? 
-       (filter (lambda (rest-position)
-                 (= (cadr rest-position) (+ (- (cadr position) (car rest-position)) (car position))))
-               rest-of-positions))))
+(define (collides-lower-diagonal? position rest-of-positions)
+  (not (null? 
+         (filter (lambda (rest-position)
+                   (= (cadr rest-position)
+                      (+ (- (cadr position) (car rest-position))
+                         (car position))))
+                 rest-of-positions))))
 
 ; (output (adjoin-position 2 3 (list)))
 (output (queens 6))
-; (output (same-lower-diagonal? 3 (list 3 3) (list (list 4 2))))
+; (output (collides-lower-diagonal? 3 (list 3 3) (list (list 4 2))))
 ; (output (enumerate-upper-diagonal 4 (list 3 4)))
 ; (output (enumerate-lower-diagonal 3 (list 3 3)))
