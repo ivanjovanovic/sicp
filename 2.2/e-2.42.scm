@@ -23,19 +23,19 @@
 ; the sequence of all ways to place queens in the first k columns of the
 ; board.
 
-(define (queens board-size)
-  (define (queen-cols k)
-    (if (= k 0)
-        (list empty-board)
-        (filter
-         (lambda (positions) (safe? k positions))
-         (flatmap
-          (lambda (rest-of-queens)
-            (map (lambda (new-row)
-                   (adjoin-position new-row k rest-of-queens))
-                 (enumerate-interval 1 board-size)))
-          (queen-cols (- k 1))))))
-  (queen-cols board-size))
+; (define (queens board-size)
+;   (define (queen-cols k)
+;     (if (= k 0)
+;         (list empty-board)
+;         (filter
+;          (lambda (positions) (safe? k positions))
+;          (flatmap
+;           (lambda (rest-of-queens)
+;             (map (lambda (new-row)
+;                    (adjoin-position new-row k rest-of-queens))
+;                  (enumerate-interval 1 board-size)))
+;           (queen-cols (- k 1))))))
+;   (queen-cols board-size))
 
 ; In this procedure rest-of-queens is a way to place k - 1 queens in the
 ; first k - 1 columns, and new-row is a proposed row in which to place
@@ -50,13 +50,26 @@
 ; respect to each other.)
 ; -------------------------------------------
 
-; First to define empty board, that is easy. Since we are going to store
-; the positions as list of pairs, then empty board means empty list
-
 (load "../common.scm")
 (load "../helpers.scm")
 (load "2.2.scm")
 
+(define (queens board-size)
+  (define (queen-cols k)
+    (if (= k 0)
+        (list empty-board)
+        (filter
+         (lambda (positions) (safe? k positions))
+         (flatmap
+          (lambda (rest-of-queens)
+            (map (lambda (new-row)
+                   (adjoin-position new-row k rest-of-queens))
+                 (enumerate-interval 1 board-size)))
+          (queen-cols (- k 1))))))
+  (queen-cols board-size))
+
+; First to define empty board, that is easy. Since we are going to store
+; the positions as list of pairs, then empty board means empty list
 (define empty-board nil)
 
 ; The way we generate all the possible positions queen can be in the new
@@ -64,11 +77,16 @@
 ; smaller problem set) and new row injected into the problem. So we have
 ; to generate combinations.
 
+; I kind of don't like how I manipulate the lists here. I had to make
+; list in the list in the list so they properly append to form list of
+; positions. I'd like to do this in a simpler and more robust manner.
+
 (define (adjoin-position new-row k rest-of-queens)
   (if (null? rest-of-queens)
     (list (list (list new-row k)))
     (map (lambda (one-position-set)
-           ; we'll put k-th position element in front
+           ; we'll put k-th position element in front for easier
+           ; selection later
            (append (list (list new-row k))
                    one-position-set))
          rest-of-queens)))
@@ -81,19 +99,24 @@
     true
     (not (colides? (caar positions) (cdr (car positions))))))
 
+; here are defined set of methods to check for th ecollision of the
+; newly placed queen with the already placed on board
 (define (colides? position rest-of-positions)
   (or (collides-row? position rest-of-positions)
       (collides-diagonal? position rest-of-positions)))
 
+; is it in the same row with other
 (define (collides-row? position rest-of-positions)
   (not (null? (filter (lambda (rest-position)
                    (= (car position) (car rest-position)))
                  rest-of-positions))))
 
+; does it collide in any diagonal
 (define (collides-diagonal? position rest-of-positions)
   (or (collides-upper-diagonal? position rest-of-positions)
       (collides-lower-diagonal? position rest-of-positions)))
 
+; check collision in upper diagonal
 (define (collides-upper-diagonal? position rest-of-positions)
   (not (null? 
          (filter (lambda (rest-position)
@@ -102,6 +125,7 @@
                          (car rest-position))))
                  rest-of-positions))))
 
+; check collision in lower diagonal
 (define (collides-lower-diagonal? position rest-of-positions)
   (not (null? 
          (filter (lambda (rest-position)
@@ -109,6 +133,25 @@
                       (+ (- (cadr position) (car rest-position))
                          (car position))))
                  rest-of-positions))))
+
+; compact version of collision detection which inlines all the cases in
+; one mehtod.
+(define (compact-colides? position rest-of-positions)
+  (not (null? (filter (lambda (rest-position)
+                        (or (= (car position) (car rest-position))
+                            (= (cadr rest-position)
+                               (+ (- (cadr position) (car position))
+                                  (car rest-position)))
+                            (= (cadr rest-position)
+                               (+ (- (cadr position) (car rest-position))
+                                  (car position)))))
+                      rest-of-positions))))
+
+; redefining safe to use compact version of collision check
+(define (safe? k positions)
+  (if (null? (cdr (car positions)))
+    true
+    (not (compact-colides? (caar positions) (cdr (car positions))))))
 
 ; (output (adjoin-position 2 3 (list)))
 (output (queens 6))
