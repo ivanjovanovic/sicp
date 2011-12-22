@@ -89,38 +89,34 @@
 ; out of the abstraction. Afterwards, when I see how to make it simpler
 ; I can change the structure only here in the data structure and not
 ; affect the way queens problem is solved
-(define (make-positions-list position)
-  (list (list position)))
-
-(define (position-list-head position-list)
-  (caar position-list))
-
-(define (position-list-tail position-list)
-  (cdar position-list))
-
-(define (position-list-has-tail? position-list)
-  (not (null? (cdar position-list))))
 
 ; Position list is designed so new position goes first
 (define (extend-position-list position position-list)
   (cons position position-list))
 
+(define (position-list-new-queen<- position-list)
+  (car position-list))
+
+(define (position-list-rest-queens<- position-list)
+  (cdr position-list))
+
+(define (position-is-single? position-list)
+  (null? (cdr position-list)))
+
 
 (define (adjoin-position new-row k rest-of-queens)
-  (if (null? rest-of-queens)
-    (make-positions-list (make-position new-row k))
-    (map (lambda (one-position-set)
-             (extend-position-list (make-position new-row k) one-position-set))
-         rest-of-queens)))
+  (extend-position-list (make-position new-row k) rest-of-queens))
 
 ; Here we define filter that checks if k-th queen is placed on the safe
 ; place within the given position set, taking that all previous elements of
 ; the set comprise a valid set.
 
 (define (safe? k positions)
-  (if (not (position-list-has-tail? positions))
+  (if (position-is-single? positions)
     true
-    (not (colides? (position-list-head positions) (position-list-tail positions)))))
+    (not (colides? 
+           (position-list-new-queen<- positions) 
+           (position-list-rest-queens<- positions)))))
 
 ; here are defined set of methods to check for th ecollision of the
 ; newly placed queen with the already placed on board
@@ -158,6 +154,7 @@
                  rest-of-positions))))
 
 ; (output (adjoin-position 2 3 (list (cons 5 6))))
+; (output (queens 4))
 (output (queens 4))
 ; (output (row<- (make-position 2 2)))
 ; (output (collides-lower-diagonal? 3 (list 3 3) (list (list 4 2))))
@@ -165,10 +162,4 @@
 ; (output (enumerate-lower-diagonal 3 (list 3 3)))
 
 ; The implementation gives proper results.
-; I'm pretty sure it can be optimized for speed. I'm executing on `heist` Ruby implementation
-; of Scheme interpreter which is far from fast so I don't get very fast
-; restult for size 8 but it gets there and renders all 92 results.
-;
-; I'm not satisfied how I solved the data structure that holds list of
-; lists of positions, and it looks kind of non-intuitive and leaking.
-; This is good exercise to make this properly implented.
+; I'm pretty sure it can be optimized for speed. I get all 92 results for size 8.
