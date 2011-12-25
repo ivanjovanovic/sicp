@@ -162,3 +162,25 @@ we can operate on a 2D space with the points in the plane.
 
 In the same logic we could operate on the 3D space if we would have 3
 level nesting of the mappings.
+
+# Levels of language and robust programm design
+
+In the example of the picture language, some very important ideas of
+abstraction are presented.
+
+First idea we introduce is behavior of data abstraction. Before we had
+only constructor and selectors as interface to the abstraction, but now
+painter in fact presents behavior of this data abstraction in certain
+context defined by given frame. Whole data abstraction is modeled as one
+procedure which enables us to use all the power of higher-order
+functions to make compound data abstractions by using procedures as
+primitives.
+
+Second is the introduction of `stratified design` as a way to organize
+abstractions. This way, abstractions as build as layers one on top of
+each other. Each layer is build by using abstractions which are all on
+the same level. Abstractions on one level are used as primitives to
+build higher level abstractions and so forth.
+
+Stratified design makes programs robus in a sense that small change in
+requirements will require small change in the code.
