@@ -4,7 +4,6 @@ GEM
     heist (0.3.2)
       oyster
       treetop
-    minitest (2.4.0)
     oyster (0.9.5)
     polyglot (0.3.2)
     treetop (1.4.10)
@@ -16,4 +15,3 @@ PLATFORMS
 
 DEPENDENCIES
   heist
-  minitest (~> 2.4.0)
