@@ -74,6 +74,10 @@
     (cons '+ (cddr e))
     (caddr e)))
 
+; The way derivation is implemented we don't need to change
+; sum and product constructors to get proper results. Although 
+; they can be updated to make products and sums of multiple elements
+
 ; (output (multiplicand '(* 3 4 5)))
 (output (deriv '(* x x (+ x 1)) 'x))
 
