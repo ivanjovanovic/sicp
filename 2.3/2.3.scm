@@ -105,3 +105,5 @@
         ((=number? m2 1) m1)
         ((and (number? m1) (number? m2)) (* m1 m2))
         (else (list '* m1 m2))))
+
+; (output (deriv '(* x y (+ x 3)) 'x))
