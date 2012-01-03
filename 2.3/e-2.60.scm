@@ -48,10 +48,9 @@
 
 ; (output (union-set (list 1 1 2 3 4) (list 1 1 7 7 7)))
 
-; Given that the only difference is at adjoining elements which is done
-; in constant time instead of linear as with non-repeateable sets, we
-; could use this when we have to add a lot of elements to set and
-; repeating is not important
+; Here we see that adjoining elements and making unions is much more
+; efficient than in prefious case, due to lack of need to check for the
+; duplication. Adjoining is now constant time, while union is from O(n^2) now O(n) just for appending all elements to a set. Therefore, if we would have a case where multisets (sets with allowed duplication) is option and there are lot of adjoins and unions to the set, we could profit a lot from this approach.
 ;
 ; This solution doesn't go into details of implementaion of multisets
 ; and their arithmetics and rules. 

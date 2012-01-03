@@ -35,4 +35,22 @@ is in the set, or in the other set in case of set arithmetics.
 Therefore, adding element to the set will be of O(n) of complexity and
 union or intersection will need O(n^2) steps for the set sizes of n.
 
+## sets as ordered lists
 
+One way to improve performance of the operations on a set is to
+represent set with ordered list. For the simplification we will work
+with numbers, but we could have any object which could be comparable
+with other of same kind. This way, we will not need to traverse whole
+set every time but only until we are sure that it is useful.
+
+Checking if something is element of set still needs in worst case to
+traverse whole list to give the answer but in averae it is O(n/2) which
+is stil linear with number of elements but with less steep slope. it is
+factor of 2 in average less.
+
+Intersection gives even better results. Given the ordered sets we can
+then say that when x1 is equal to x2 reset to compare is only (cdr set1)
+with (cdr set2) which is less than always comparing element of set1 with
+whole set2. When x1 is smaller than x2 then we can immediatelly tell it
+is not part of the intersection. All of this makes intersection growing
+with the rate of O(n) rather than O(n^2) in the case of unordered sets.
