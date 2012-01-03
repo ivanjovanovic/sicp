@@ -107,3 +107,36 @@
         (else (list '* m1 m2))))
 
 ; (output (deriv '(* x y (+ x 3)) 'x))
+
+
+; Representing sets
+;
+; as unordered lists
+
+; checking if element is part of the set
+
+(define (element-of-set? x set)
+  (cond ((null? set) false)
+        ((equal? x (car set)) true)
+        (else (element-of-set? x (cdr set)))))
+
+; (output (element-of-set? 1 (list 1 2 3)))
+
+; using this we can write adjoin-set
+
+(define (adjoin-set x set)
+  (if (not (element-of-set? x set))
+    (append set (list x)) ; I like append more than cons here
+    set)); just return set
+
+; (output (adjoin-set 4 (list 1 2 3)))
+
+; Intersection is defined as set that contains elements from both sets
+
+(define (intersection-set set1 set2)
+  (cond ((or (equal? set1 '()) (equal? set2 '())) '())
+        ((element-of-set? (car set1) set2)
+         (cons (car set1) (intersection-set (cdr set1) set2)))
+        (else (intersection-set (cdr set1) set2))))
+
+; (output (intersection-set (list 1 7 3 6 4 22) (list 1 2 3 4 22)))
