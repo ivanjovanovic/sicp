@@ -54,3 +54,24 @@ with (cdr set2) which is less than always comparing element of set1 with
 whole set2. When x1 is smaller than x2 then we can immediatelly tell it
 is not part of the intersection. All of this makes intersection growing
 with the rate of O(n) rather than O(n^2) in the case of unordered sets.
+
+## Binary trees
+
+Ordered lists are good, but we can do better than that if we organize
+our list in the form of the tree. Every node of the tree will hold one
+element of the set and two (possibly empty) links. `left` link will hold
+link to a node that contains smaller element and `right` link will hold
+the link to a bigger value. There are various ways to represent the set
+in the tree form defined above. So we can have different trees for the
+same set.
+
+If tree is set this way, than to search for the element of the set, we
+can eliminate whole subtree in evry step since we know that on the left
+we have lower values and on the right bigger ones. If tree is balanced
+then searching this tree is done with the O(log n) steps, given the size
+of the set n.
+
+Having simple procedures that adjoin elements to a set do not guarantee
+having balanced tree as result. Without the balance in the tree we are
+using the property of efficiency which make possibility to search and
+add elements in the tree in the O(log n) number of steps.
