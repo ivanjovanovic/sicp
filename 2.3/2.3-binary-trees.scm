@@ -34,3 +34,25 @@
                     (left-branch set)
                     (adjoin-set x (right-branch set))))))
 
+
+; couple of helper methods to generate random numerical trees for testing.
+; Running pretty slow though for larger trees
+(define (random-list n)
+  (do ((random-list '() (cons random-element random-list))
+       (random-element (random n) (random n))
+       (i 0 (+ i 1)))
+    ((= i n) random-list)))
+
+; (output (random-list 1000))
+
+(define (random-tree n)
+  (do ((tree-elements (random-list n) (cdr tree-elements))
+       (random-tree 
+         '() 
+         ((lambda (x) (if (element-of-set? x random-tree)
+                       random-tree
+                       (adjoin-set x random-tree))) (car tree-elements))))
+    ((null? tree-elements) random-tree)))
+
+; (output (random-tree 100))
+
