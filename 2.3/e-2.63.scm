@@ -85,9 +85,9 @@
 ; But then job is not done because we need to append result of first to result of second to make it final which is n more steps
 ; since append has O(n) order of growth. Finally we have
 ;
-; T(n) = 2*T(n/2) + n steps. When this is solved for n -> infinity we get order of growth
-; O(n*logn)
-; Check http://en.wikipedia.org/wiki/Merge_sort#Analysis for more details since this is similar to merge sort.
+; T(n) = 2*T(n/2) + n steps. 
+; According to master theorem http://en.wikipedia.org/wiki/Master_theorem
+; If we solve this we get order of growth O(n*logn)
 ;
 ;
 ; In second case we have execution of the copy-to-list n times for every node with cons
