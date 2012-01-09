@@ -6,11 +6,9 @@
 ; average about half as many steps as with the unordered representation.
 ; ------------------------------------------------------------
 
-; Well, adjoin set is using the element-of-set? proceudre which already
-; has in average half as many steps. Without any change we get the
-; benefit.
-;
+; adjoin set that makes ordered set of numbers as output
 (define (adjoin-set x set)
-  (if (not (element-of-set? x set))
-    (cons x set)
-    set))
+  (cond ((null? set) (list x))
+        ((= x (car set)) set)
+        ((< x (car set) (cons x set)))
+        (else (cons (car set) (adjoin-set x (cdr set))))))
