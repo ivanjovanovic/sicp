@@ -101,7 +101,7 @@
   (define (decode-inner bits current-branch)
     (if (null? bits)
       '()
-      (let ((next-branch (choose-branch (card bits) current-branch)))
+      (let ((next-branch (choose-branch (car bits) current-branch)))
         (if (leaf? next-branch)
           (cons (symbol-leaf next-branch)
                 (decode-inner (cdr bits) tree))
@@ -134,3 +134,15 @@
         (adjoin-set (make-leaf (car pair)    ; symbol
                                (cadr pair))  ; frequency
                     (make-leaf-set (cdr pairs))))))
+
+(define (generate-huffman-tree pairs)
+  (successive-merge (make-leaf-set pairs)))
+
+; look at e-2.69
+(define (successive-merge tree)
+  (if (null? (cdr tree)) 
+    tree
+    (successive-merge 
+      (adjoin-set 
+        (make-code-tree (car tree) (cadr tree))
+        (cddr tree)))))
