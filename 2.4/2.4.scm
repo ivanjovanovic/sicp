@@ -250,3 +250,24 @@
   ((get 'make-from-real-imag 'rectangular) x y))
 (define (make-from-mag-ang r a)
   ((get 'make-from-mag-ang 'polar) r a))
+
+; Other way of organizing generic operations is called message passing.
+; That is approach where together with data, we define set of generic operations
+; that can be done with data. So insead of putting data to a table and
+; resolving correct procedure by the type, we place wy to execute generic procedure
+; together with the data itself
+
+(define (make-from-real-imag x y)
+  (define (dispatch op)
+    (cond ((eq? op 'real-part) x)
+          ((eq? op 'imag-part) y)
+          ((eq? op 'magnitude)
+           (sqrt (+ (square x) (square y))))
+          ((eq? op 'angle) (atan y x))
+          (else
+           (error "Unknown op -- MAKE-FROM-REAL-IMAG" op))))
+  dispatch)
+
+; and now we can execute generic operation with
+
+(define (apply-generic op arg) (arg op))

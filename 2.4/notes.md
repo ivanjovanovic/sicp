@@ -37,14 +37,39 @@ and want to have both representations. Then, despite the fact we have
 same interfaces, we need to disinguish in some way between the
 representations.
 
+## Dispatch on type
 A solution we use in this example is introducing the `type tags` that
 tag the object with additional specification in order to distinguish the
 type of the representation which is used in a case of particular complex
 number instance.
 
+## Data directed programming
 In that case developers of two departments have to make their data
 abstractions specific to a decided implementation and there has to be
 implemented another layer of abstraction on top to provide general
 terminology for all the representations and make user oblivious of the
 representation details. That is done with technique called `dispatch on
 type`.
+
+# Message passing
+
+The other way of solving the problem of generic operations that need to
+be done is so called `message passing`. It is hard to explain it without
+the example. So here is one simple example
+
+(define (make-from-real-imag x y)
+  (define (dispatch op)
+    (cond ((eq? op 'real-part) x)
+          ((eq? op 'imag-part) y)
+          ((eq? op 'magnitude)
+           (sqrt (+ (square x) (square y))))
+          ((eq? op 'angle) (atan y x))
+          (else
+           (error "Unknown op -- MAKE-FROM-REAL-IMAG" op))))
+  dispatch)
+
+Here, we can see that from the constructor we return a procedure
+`dispatch` which receives operation to be executed on the data. Data in
+fact is not put in any data structure like pair, but sits as couple of
+bound variables of the internaly defined dispatch message. One obvious
+advantage here is that instance of our data (if we can call it like that) is holding close to the data list of operations that can be done with its data. It is not in some kind of ermote table that has to be managed separately.
