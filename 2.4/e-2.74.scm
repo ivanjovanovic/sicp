@@ -191,18 +191,11 @@
 
 ; lets artificially create table of procedures
 (define (get op type)
-  (cond ((and (eq? op 'get-record)
-              (eq? type 'ins1-record))
-         get-ins1-record)
-        ((and (eq? op 'get-record)
-              (eq? type 'ins2-record))
-         get-ins2-record)
-        ((and (eq? op 'get-salary)
-              (eq? type 'ins1-record))
-         get-ins1-salary)
-        ((and (eq? op 'get-salary)
-              (eq? type 'ins2-record))
-         get-ins2-salary)))
+  (cond ((and (eq? op 'get-record) (eq? type 'ins1-record)) get-ins1-record)
+        ((and (eq? op 'get-record) (eq? type 'ins2-record)) get-ins2-record)
+        ((and (eq? op 'get-salary) (eq? type 'ins1-record)) get-ins1-salary)
+        ((and (eq? op 'get-salary) (eq? type 'ins2-record)) get-ins2-salary)))
+
 ; c )
 ;
 ; Making generic find record is now easier as well
