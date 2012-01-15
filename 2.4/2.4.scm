@@ -230,10 +230,10 @@
 ; Now we have to define a way to apply provided operation to a list of
 ; arguments that are provided
 (define (apply-generic op . args) ; taking arbitrary number of arguments
-  (let ((type-tags (map type-tags args)))
+  (let ((type-tags (map type-tag args)))
     (let ((proc (get op type-tags)))
       (if proc
-        (apply proc (map contents args))
+        (apply proc (map content args))
         (error
           "No method for these types - APPLY-GENERIC"
           (list op type-tags))))))
@@ -270,4 +270,4 @@
 
 ; and now we can execute generic operation with
 
-(define (apply-generic op arg) (arg op))
+; (define (apply-generic op arg) (arg op))

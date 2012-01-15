@@ -22,7 +22,13 @@ My goal is to
 
 ### Process
 
-I use [Heist](https://github.com/jcoglan/heist) Scheme interpreter
+After I passed more then a third of examples I have installed
+[CHICKEN](http://call-cc.org/) Scheme compiler and interpreter to run
+examples. It is better in supporting standards, comes with additional
+libraries that can be installed, it is MUCH faster and gives much better
+error messages with proper bracktraces.
+
+I used [Heist](https://github.com/jcoglan/heist) Scheme interpreter
 written in Ruby which should be sufficient for development of the
 excercises given in the book. I use Vim for and IDE.
 

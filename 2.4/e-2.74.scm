@@ -160,7 +160,7 @@
   ((get 'get-salary (type-tag record)) (content record)))
 
 ; and we would just have to install our packages
-(define install-ins1-records
+(define (install-ins1-records)
   (define (get-ins1-record records name)
     (cond ((null? records) '())
           ((equal? name (cdaar records)) 
@@ -175,7 +175,7 @@
   (put 'get-record 'ins1-record get-ins1-record)
   (put 'get-salary 'ins1-record get-ins1-salary))
 
-(define install-ins2-records
+(define (install-ins2-records)
   (define (get-ins2-record records name)
     (cond ((null? records) '())
           ((equal? name (caar records)) 
