@@ -28,6 +28,7 @@
     (error "bad tagged data -- TYPE-TAG" datum)))
 
 (define (content datum)
+  (output datum)
   (if (pair? datum)
     (cdr datum)
     (error "bad tagged data -- CONTENTS" datum)))

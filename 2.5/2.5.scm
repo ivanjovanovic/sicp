@@ -10,8 +10,10 @@
 (define op-table (make-hash-table))
 (define (put op types val)
   (hash-table-set! op-table (list op types) val))
+
+; defined with default return value so it doesn't break process
 (define (get op types)
-  (hash-table-ref op-table (list op types)))
+  (hash-table-ref/default op-table (list op types) #f))
 
 ; (output (put 'add '(t1 t2) 1))
 ; (output (get 'add '(t1 t2)))
@@ -197,3 +199,47 @@
 ; (output (hash-table-keys op-table))
 
 ; (output (make-complex-from-real-imag 4 5))
+
+; We have one problem here. If we have numbers of different types, then
+; we have somehow to transform the expression to a form that makes sense to do operations with.
+
+; We can do this by setting a coercion table
+
+(define coercion-table (make-hash-table))
+(define (put-coercion type1 type2 proc)
+  (hash-table-set! coercion-table (list type1 type2) proc))
+
+; defined with default return value so it doesn't break process
+(define (get-coercion type1 type2)
+  (hash-table-ref/default coercion-table (list type1 type2) #f))
+
+; and then we can define coercions and fill the table
+
+(define (scheme-number->complex n)
+  (make-complex-from-real-imag (content n) 0))
+
+(put-coercion 'scheme-number 'complex scheme-number->complex)
+
+; And we need to change apply-generic to take coercion into account
+
+(define (apply-generic op . args)
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (apply proc (map content args))
+          (if (= (length args) 2)
+              (let ((type1 (car type-tags))
+                    (type2 (cadr type-tags))
+                    (a1 (car args))
+                    (a2 (cadr args)))
+                (let ((t1->t2 (get-coercion type1 type2))
+                      (t2->t1 (get-coercion type2 type1)))
+                  (cond (t1->t2
+                         (apply-generic op (t1->t2 a1) a2))
+                        (t2->t1
+                         (apply-generic op a1 (t2->t1 a2)))
+                        (else
+                         (error "No method for these types"
+                                (list op type-tags))))))
+              (error "No method for these types"
+                     (list op type-tags)))))))
