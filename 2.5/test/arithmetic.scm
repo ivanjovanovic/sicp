@@ -1,5 +1,6 @@
 (load "../../helpers.scm")
 (load "../arithmetics.scm")
+(load "../symbolic_algebra.scm")
 
 ; All the test situations should be defined here.
 ; This is for the sake of seeing if soemthing is awfully broken
@@ -47,3 +48,6 @@
 (output (pushable? (make-rational 4 2)))
 (output (add (make-rational 4 1) (make-rational 4 1)))
 (output (push-down (make-rational 4 1)))
+
+(output (=zero? (make-polynomial 'x (list (list 1 0) (list 0 0)) ))) ; #t
+(output (=zero? (make-polynomial 'x (list (list 1 0) (list 0 1)) ))) ; #f
