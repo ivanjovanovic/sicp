@@ -40,15 +40,13 @@
 ; ------------------------------------------------------------
 
 (load "../helpers.scm")
-(load "../common.scm")
 
 ; Read on random numbers
 
-; have to redefine it since on Mac (random) when running as script
-; produces steady sequences
+; doing a bit better resolution
+; There is a potential problem for division by zero
 (define (random-in-range low high)
   (let ((range (- high low)))
-    (randomize (* (inexact->exact (current-milliseconds)) 100))
     (+ low (/ (random (* range 100)) 100))))
 
 (define (monte-carlo trials experiment)
@@ -61,7 +59,7 @@
   (iter trials 0))
 
 (define (unit-predicate x y) ; unit predicate for unit circle in (3,3)
-  (<= (+ (square (- x 3)) (square (- y 3))) 1))
+  (<= (+ (* (- x 3) (- x 3)) (* (- y 3) (- y 3))) 1))
 
 (define (estimate-integral p x1 y1 x2 y2 trials)
   (define rectangle-area
@@ -69,8 +67,14 @@
   (define (predicate-test)
     (let ((x (random-in-range x1 x2))
           (y (random-in-range y1 y2)))
-      (output x y)
       (p x y)))
   (* rectangle-area (monte-carlo trials predicate-test)))
 
-(output (estimate-integral unit-predicate 1 1 5 10 100000))
+; Chicken Scheme random number generator is not generating anything
+; random for some reason and it will not give proper result. It stucks
+; in a sequence after some iterations and doesn't produce anything
+; random. Have to see what is the problem.
+
+; Heist is pretty slow but runs correctly with its pseudo-random 
+; generator
+(output (estimate-integral unit-predicate 1 1 5 10 10000))
