@@ -24,7 +24,7 @@ of changing state only as tool for the cases where it is needed.
 As said, we will hae to introduce new model of computation, which will
 be defined and esplained as environmental model of computation.
 
-# Assignment and local state
+## Assignment and local state
 
 We say that one object has state when its behavior is influenced by
 history of actions taken on that object.
@@ -33,3 +33,44 @@ In order to be able to influence the history of one object and its local
 state which is kept in local variables, we have to introduce assignment
 operator which is a big addition to the set of features of a programming
 language.
+
+By being able to have local state and assignment operator we can produce
+simple objects like this
+
+(define (make-withdraw balance)
+  (lambda (amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds")))
+
+or more complex ones that have more than one action associated with
+internal state, like this.
+
+(define (make-account balance)
+  (define (withdraw amount)
+    (if (>= balance amount)
+      (begin (set! balance (- balance amount))
+             balance)
+      "Insufficient funds"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+  (define (dispatch m)
+    (cond ((eq? m 'withdraw) withdraw)
+          ((eq? m 'deposit) deposit)
+          (else (error "Unknown request -- MAKE-ACCOUNT" m))))
+  dispatch)
+
+this can be used like this
+(define acc (make-account 100))
+
+This way of resolving the action to be taken on an object is called
+message passing style.
+((acc 'withdraw) 50))
+
+## Benefits of introducing assignment
+
+Modeling a system with objects that contain local state enables us to
+make the system design more modular and broken into more maintainable
+pieces whose changes do not affect other parts of the system.
