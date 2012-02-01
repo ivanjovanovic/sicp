@@ -74,6 +74,9 @@
 ; random for some reason and it will not give proper result. It stucks
 ; in a sequence after some iterations and doesn't produce anything
 ; random. Have to see what is the problem.
+; @see http://bugs.call-cc.org/ticket/218
+; @see http://srfi.schemers.org/srfi-27/
+; @see http://wiki.call-cc.org/eggref/4/random-mtzig
 
 ; Heist is pretty slow but runs correctly with its pseudo-random 
 ; generator
