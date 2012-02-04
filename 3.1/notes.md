@@ -37,37 +37,37 @@ language.
 By being able to have local state and assignment operator we can produce
 simple objects like this
 
-(define (make-withdraw balance)
-  (lambda (amount)
-    (if (>= balance amount)
-        (begin (set! balance (- balance amount))
-               balance)
-        "Insufficient funds")))
+  (define (make-withdraw balance)
+    (lambda (amount)
+      (if (>= balance amount)
+          (begin (set! balance (- balance amount))
+                 balance)
+          "Insufficient funds")))
 
 or more complex ones that have more than one action associated with
 internal state, like this.
 
-(define (make-account balance)
-  (define (withdraw amount)
-    (if (>= balance amount)
-      (begin (set! balance (- balance amount))
-             balance)
-      "Insufficient funds"))
-  (define (deposit amount)
-    (set! balance (+ balance amount))
-    balance)
-  (define (dispatch m)
-    (cond ((eq? m 'withdraw) withdraw)
-          ((eq? m 'deposit) deposit)
-          (else (error "Unknown request -- MAKE-ACCOUNT" m))))
-  dispatch)
+  (define (make-account balance)
+    (define (withdraw amount)
+      (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds"))
+    (define (deposit amount)
+      (set! balance (+ balance amount))
+      balance)
+    (define (dispatch m)
+      (cond ((eq? m 'withdraw) withdraw)
+            ((eq? m 'deposit) deposit)
+            (else (error "Unknown request -- MAKE-ACCOUNT" m))))
+    dispatch)
 
 this can be used like this
-(define acc (make-account 100))
+  (define acc (make-account 100))
 
 This way of resolving the action to be taken on an object is called
 message passing style.
-((acc 'withdraw) 50))
+  ((acc 'withdraw) 50))
 
 ## Benefits of introducing assignment
 
