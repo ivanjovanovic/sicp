@@ -74,3 +74,15 @@ message passing style.
 Modeling a system with objects that contain local state enables us to
 make the system design more modular and broken into more maintainable
 pieces whose changes do not affect other parts of the system.
+
+## Costs of introducing assignment
+
+* Loss of simple substitution models for evaluation of our programs.
+* Since we introduce change, we introduce the question of what is the
+  meaning of "same" in our language. When is something "same" and to
+what is it same
+* We can not anymore easily substitute `equals` for `equals` since we
+  don't exactly know in a point of time what is equal. This means we are
+losing `referential transparency` of our language.
+* Informal reasoning of the programs get difficult
+* Formal reasoning of the language gets difficult
