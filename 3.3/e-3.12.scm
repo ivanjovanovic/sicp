@@ -54,7 +54,7 @@
 ; Here, append procedure produces fully new list that is constructed
 ; from combination of old ones in a certain way. Therefore, x and y stay
 ; not changed, and z is fully different entity here
-(output (cdr x)) ; (b)
+; (output (cdr x)) ; (b)
 
 ; Lets redefine z with mutabe append.
 ;
@@ -64,6 +64,6 @@
 ; returned from (append!) procedure. Comparing to previous method, we
 ; did not create new list, but just rewired existing ones.
 (define z (append! x y))
-(output (cdr x)) ; (b c d)
+; (output (cdr x)) ; (b c d)
 
 ; box-and-pointers left on the paper. It is not that hard.
