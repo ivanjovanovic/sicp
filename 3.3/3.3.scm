@@ -13,12 +13,6 @@
 
 ; where (get-new-pair) is the constructor of the empty pair
 
-; getting the last pair of the list
-(define (last-pair x)
-  (if (null? (cdr x))
-      x
-      (last-pair (cdr x))))
-
 ; history list that gives us way to store and see if there is something inside
 (define history
   ; setting initial history it to null so append have to what to append actually ;)
@@ -45,9 +39,7 @@
   (set-cdr! (last-pair x) y)
   x)
 
-; Here last-pair is a procedure that returns the last pair in its
-; argument:
-
+; getting the last pair of the list
 (define (last-pair x)
   (if (null? (cdr x))
       x
