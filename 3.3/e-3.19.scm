@@ -9,12 +9,16 @@
 ; dependent on the length of the list this will grow over time. 
 ; Its space growth is characterized by O(n) asymptotic approximation.
 
+; Robert Floyd (http://en.wikipedia.org/wiki/Robert_W._Floyd) has found in
+; the late 1960s a very clever way to find the cycle in any part of the list.
+; We just have to make two pointers on the top of the list and then go
+; through the list in a way that we increase first one to the next position and
+; second one for two positions. If there is a cycle in the list these two
+; pointers will eventually meet, otherwise they will both end in null end and
+; exit the algorithm loop.
 
-; There is indeed a very clever way to find the cycle in any part of the list.
-; We just have to make two pointers, point them to first element, and then go through
-; the list in a way that we increase first one to the next position and second one for two positions.
-; If there is a cycle in the list these two pointers will eventually meet, otherwise they will both
-; end in null end and exit the algorithm loop.
+; For more formal information about the approach
+; @see http://en.wikipedia.org/wiki/Cycle_detection
 
 (load "../helpers.scm")
 
