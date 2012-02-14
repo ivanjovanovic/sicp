@@ -32,11 +32,9 @@
                 (lookup-recursive (cdr keys) record)
                 '#f))
             '#f)))
-
       (lookup-recursive keys local-table))
 
     (define (insert! keys value)
-      
       (define (insert-recursive! keys table)
         (let ((record (assoc (car keys) (cdr table))))
           (if record
@@ -44,19 +42,20 @@
               (set-cdr! record value)
               (if (pair? (cdr record))
                 (insert-recursive! (cdr keys) record)
+                ; this can be abstracted in recursive make
                 (begin
                   (set-cdr! record
-                            (cons (cons (cadr keys) '()) (cdr record)))
+                            (cons (cons (cadr keys) '()) '()))
                   (insert-recursive! (cdr keys) record))))
             ; no record found
             (if (null? (cdr keys))
               (set-cdr! table
                         (cons (cons (car keys) value) (cdr table)))
+              ; this can be abstracted in a recursive make
               (begin 
                 (set-cdr! table
                           (cons (cons (car keys) '()) (cdr table)))
                 (insert-recursive! keys table))))))
-
       (insert-recursive! keys local-table))
 
     (define (dispatch m)
@@ -68,12 +67,19 @@
 
 ; some examples to se if this actually works
 (define t (make-table))
-((t 'insert-proc!) (list 'a 'b 'c) 5)
-((t 'insert-proc!) (list 'a 'b 'd) 6)
-((t 'insert-proc!) (list 'a 'b 'e 'f) 8)
+(define put (t 'insert-proc!))
+(define get (t 'lookup-proc))
 
-(output ((t 'lookup-proc) (list 'a)))
-(output ((t 'lookup-proc) (list 'a 'b 'c)))
-(output ((t 'lookup-proc) (list 'a 'b 'd)))
-(output ((t 'lookup-proc) (list 'a 'b 'e)))
-(output ((t 'lookup-proc) (list 'a 'b 'e 'f)))
+(put '(a) 10)
+(put '(a b) 5)
+(output (get '(a)))
+(put '(a b d) 6)
+(put '(a b e f) 8)
+
+
+
+(output (get '(a)))
+(output (get '(a b c)))
+(output (get '(a b d)))
+(output (get '(a b e)))
+(output (get '(a b e f)))
