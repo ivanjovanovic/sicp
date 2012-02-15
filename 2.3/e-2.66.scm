@@ -44,10 +44,10 @@
               (terminus (cons 11 (list 12 13))))))
 
 
-(output (lookup 7 tree))
-(output (lookup 3 tree))
-(output (lookup 1 tree))
-(output (lookup 5 tree))
-(output (lookup 9 tree))
-(output (lookup 11 tree))
+; (output (lookup 7 tree))
+; (output (lookup 3 tree))
+; (output (lookup 1 tree))
+; (output (lookup 5 tree))
+; (output (lookup 9 tree))
+; (output (lookup 11 tree))
 
