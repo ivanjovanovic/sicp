@@ -18,8 +18,7 @@
   'ok)
 
 (define (logical-or a b)
-  (cond ((and (= a 1) (= b 0)) 1)
-        ((and (= a 0) (= b 1) 1))
+  (cond ((or (= a 1) (= b 1)) 1)
         (else 0)))
 
 (output (logical-or 1 0))
