@@ -3,6 +3,10 @@
 
 ; We can define the half-adder circuit @see Figure 3.25 by constructing the elements
 
+(load "e-3.28.scm") ; or-gate definition
+
+(define (make-wire) 1)
+
 (define a (make-wire))
 (define b (make-wire))
 (define c (make-wire))
@@ -37,6 +41,7 @@
     (half-adder a s sum c2)
     (or-gate c1 c2 c-out)
     'ok))
+
 
 ; our simulator provides us language for defining circuits where every element of the language
 ; correspodents to the elementary box in the iagram of the circuit.
@@ -81,3 +86,4 @@
   (add-action! a1 and-action-procedure)
   (add-action! a2 and-action-procedure)
   'ok)
+
