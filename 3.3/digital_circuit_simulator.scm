@@ -3,7 +3,6 @@
 
 ; We can define the half-adder circuit @see Figure 3.25 by constructing the elements
 
-(load "e-3.28.scm") ; or-gate definition
 
 (define (make-wire) 1)
 
