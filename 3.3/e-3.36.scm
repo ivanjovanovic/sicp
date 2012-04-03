@@ -16,4 +16,21 @@
 ; expression is evaluated.
 ; ------------------------------------------------------------
 
-
+; complex drawing on paper.
+;
+; First we have to draw set of definitions in the global space.
+;
+; Second we have to make connectors which create two execution environments
+; that hold local state and procedures which are loal to that execution environment
+;
+; Third, we create the call stack for the set-value! procedure executed in global environment
+; and then can see how procedures change state of the existing execution environments, how they
+; relate to them and in which environment (for-each-except) is executed and how its execution environment
+; looks like.
+;
+;
+;
+;
+; Sidenote:
+; I hope to buy scanner these days to scan some hand drawn environment diagrams, but my expectations
+; are fairly low since my drawing skills are approximating zero.
