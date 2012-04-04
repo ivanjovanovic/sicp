@@ -33,7 +33,7 @@ answers at the end, but programm will still be correct.
 ## Mechanisms for controlling concurrency
 
 One practical approach of concurrency control is serialization of the
-access to the shared state. It implements the following idea. Processes
+access to the shared state. It implements the following idea: Processes
 can execute concurrently, but certain procedures can not execute in the
 same time. If one serialized procedure is in execution and other tries
 to start, it will have to wait until the first has finished.
