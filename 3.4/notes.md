@@ -45,3 +45,11 @@ primitive synchronization mechanism called a `mutex`. Mutex is an
 computational object that has two operations, it can be `aquired` and
 `released`. Once aquired, other that are to be synchronized have to wait
 until is released to aquire it.
+
+## Deadlock
+
+Even when we have serialization implemented, it is possible that two
+processes have a special case in which first depends on the resource
+locked by second, and second depends on the resource locked by the
+first. In this case they are indefinitely waiting for each other. We say
+they are in the deadlock.
