@@ -12,7 +12,7 @@ are to be executed on machines.
 
 ### Goal
 
-My goal is to 
+My goal is to
 
   * Read the [SICP book](http://mitpress.mit.edu/sicp/full-text/book/book.html)
   * Watch the [MIT 6.001 course](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/) videos
@@ -51,3 +51,4 @@ this so I don't lose the track of where I stoped.
 ### Used references
 
 * [Scheme at Glance](http://www.troubleshooters.com/codecorn/scheme_guile/hello.htm)
+* [Schemers.org](http://schemers.org/)

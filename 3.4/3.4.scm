@@ -111,4 +111,50 @@
 ; function wrapper with one synchronization primitive. We use mutex for
 ; that. mutex stands for mutual exclusion flag.
 
+; Making a serializer.
+; Serializer is like the factory to make more concrete type of the
+; procedure which is passed.
+; We pass certain procedure, and get back more restricted type which is
+; serialized procedure.
+(define (make-serializer)
+  (let ((mutex (make-mutex)))
+    (lambda (p)
+      (define (serialized-p . args)
+        (mutex 'aquire)
+        (let ((val (apply p args)))
+          (mutex 'release)
+          val))
+      serialized-p))))
 
+; NOTE:
+; Here we can see one of the most standard uses of the higher-order
+; functions. We pass one procedure to another one which produce new
+; procedure which is combined with certain additional operations around
+; the passed one.
+
+; Making a mutex object.
+; It is an object with internal state and two mutators It can be
+; acquired if not already, and released if already acquired.
+
+(define (make-mutex)
+  (let ((cell (list false)))
+    (define (the-mutex m)
+      (cond ((eq? m 'aquire)
+             (if (test-and-set! cell)
+               (the-mutex 'aquire))) ; try again until you aquire it
+            ((eq? m 'release) (clear! cell)))
+      the-mutex)))
+(define (clear! cell)
+  (set-car! cell false))
+
+; following function is the brain of the mutex.
+; A bit more magical than I would expect since it has kind of reversed
+; logic to return false if it aquired it.
+(define (test-and-set! cell)
+  (if (car cell)
+    true
+    (begin (set-car! cell true)
+           false)))
+
+; One thing to notice here is that (test-and-set!) procedure is by
+; default not atomic and can be as well source of concurrency bugs :)

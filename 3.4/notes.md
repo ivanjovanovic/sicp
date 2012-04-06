@@ -37,3 +37,11 @@ access to the shared state. It implements the following idea: Processes
 can execute concurrently, but certain procedures can not execute in the
 same time. If one serialized procedure is in execution and other tries
 to start, it will have to wait until the first has finished.
+
+## Implementation of serializers
+
+Serializers are implemented as computational objects that contain more
+primitive synchronization mechanism called a `mutex`. Mutex is an
+computational object that has two operations, it can be `aquired` and
+`released`. Once aquired, other that are to be synchronized have to wait
+until is released to aquire it.
