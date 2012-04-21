@@ -152,3 +152,107 @@
          (cons-stream (stream-car stream)
                       (stream-filter pred (stream-cdr stream))))
         (else (stream-filter pred (stream-cdr stream)))))
+
+
+
+; From the previous we can see that streams are as lists, just that they
+; are expanding their size only as needed and in the moment when needed.
+; Extending this principle, we can then define even infinite streams.
+
+; easyli, we can define infinite range of integers
+(define (integers-starting-from n)
+  (cons-stream n (integers-starting-from (+ n 1))))
+
+(define integers (integers-starting-from 1))
+
+; this will now evaluate only 1000 integers, and still keep the infinite number of them in sequence
+; (output (stream-ref integers 1000))
+;
+; Using this definition of integeres we can produce some interesting sequences
+(define (divisible? x y) (= (remainder x y) 0))
+(define no-sevens
+  (stream-filter (lambda (x) (not (divisible? x 7)))
+                 integers))
+
+; this would render infinite list of elements not divisible by 7
+; (display-stream no-sevens)
+
+
+; similar we can do the infinite stream of prime numbers by the sieve of Eratosthenes.
+(define (sieve stream)
+  (cons-stream
+    (stream-car stream)
+    (sieve (stream-filter
+             (lambda (x) (not (divisible? x (stream-car stream))))
+             (stream-cdr stream)))))
+
+(define primes-stream (sieve (integers-starting-from 2)))
+
+; (output (stream-ref primes-stream 50))
+
+
+; previously defined streams where explicitelly defined as generators of some kind.
+; We can define them as well more implicitly.
+
+; here, point is that expression b in (cons-stream a b) will not be evaluated until it
+; is needed,and until then we'll already have definition of ones.
+(define ones (cons-stream 1 ones))
+
+; or another example with using multistream (stream-map) version fro exercise 3.50
+(define (add-streams s1 s2)
+  (stream-map + s1 s2))
+
+(define (stream-map proc . argstreams)
+  (if (stream-null? (car argstreams))
+      the-empty-stream
+      (cons-stream
+       (apply proc (map car argstreams))
+       (apply stream-map
+              (cons proc (map stream-cdr argstreams))))))
+
+
+; now we define
+(define integers (cons-stream 1 (add-streams ones integers)))
+
+; scale stream is another helpful procedure for implicit stream declaration
+(define (scale-stream stream factor)
+  (stream-map (lambda (x) (* x factor))
+              stream))
+
+; now to use it
+(define double (cons-stream 1 (scale-stream double 2)))
+
+; (output (stream-ref double 64))
+
+
+(define (merge s1 s2)
+  (cond ((stream-null? s1) s2)
+        ((stream-null? s2) s1)
+        (else
+         (let ((s1car (stream-car s1))
+               (s2car (stream-car s2)))
+           (cond ((< s1car s2car)
+                  (cons-stream s1car (merge (stream-cdr s1) s2)))
+                 ((> s1car s2car)
+                  (cons-stream s2car (merge s1 (stream-cdr s2))))
+                 (else
+                  (cons-stream s1car
+                               (merge (stream-cdr s1)
+                                      (stream-cdr s2)))))))))
+
+(define (mul-streams s1 s2)
+  (stream-map * s1 s2))
+
+(define (display-stream-head stream n)
+  (if (= n 1) (output (stream-car stream))
+    (begin
+      (output (stream-car stream))
+      (display-stream-head (stream-cdr stream) (- n 1)))))
+
+; for this we have to define division of the streams
+(define (div-streams s1 s2)
+  (stream-map / s1 s2))
+
+(define (negate-series series)
+  (stream-map (lambda (x) (- x))
+              series))
