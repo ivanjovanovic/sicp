@@ -1,8 +1,13 @@
 ## data asbtractions
 
+### through abstract data types
+### through objects
+
+### mechanisms for allowing multiple implementations
+
 ## procedural abstractions
 
-## conventional interfaces
+## conventional interfaces between computational objects
 
 
 ## Making a serializer.

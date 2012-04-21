@@ -1,6 +1,9 @@
 ; Library of common procedures used in exercises which do not particularly participate
 ; in solution design but are used only as helpers and can be shared among.
 
+(define true #t)
+(define false #f)
+
 (define (square x)
   (* x x))
 
@@ -51,7 +54,7 @@
 (define (accumulate op initial sequence)
   (if (null? sequence)
     initial
-    (op (car sequence) 
+    (op (car sequence)
         (accumulate op initial (cdr sequence)))))
 
 (define (filter predicate sequence)
