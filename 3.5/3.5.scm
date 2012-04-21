@@ -48,15 +48,18 @@
 ; the-empty-stream object
 ; and the constructor (const-stream x y)
 
-; Stream operations analog to lists
-
-; we have to define cons-stream as macro since we
-; don't want it to be evaluated in the moment of definition
+; we have to define cons-stream as macro.
+; This is because if we do (cons-stream a b) as a procedure
+; call, then expression b will be evaluated before application of
+; the procedure (cons-stream)
+; This way, as a macro, it is first syntactically transformed to
+; delayed version and then executed.
 (define-syntax cons-stream
   (syntax-rules ()
     ((cons-stream x y)
      (cons x (delay y)))))
 
+; Stream operations analog to lists
 (define (stream-ref s n)
   (if (= n 0)
     (stream-car s)
