@@ -94,3 +94,12 @@ them introduce sideffects that ruin dramatically pure mathematical
 properties of programs and lead to models that are harder to understand,
 reason about and maintain. So there is no ground to say that any of them
 is perfect or the right approach for every problem.
+
+## Infinite streams
+
+During solving the exercises from the section related to infinite
+streams, we have developed small library for arithmetic with streams and
+wth Taylor series for representation of the math functions. Here is
+interesting to see how naturally streams fit as underlying data
+structure some concepts and how easy is to build on top of them to
+produce more complex abstractions.
