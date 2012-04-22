@@ -103,3 +103,21 @@ wth Taylor series for representation of the math functions. Here is
 interesting to see how naturally streams fit as underlying data
 structure some concepts and how easy is to build on top of them to
 produce more complex abstractions.
+
+## Exploiting stream paradigm
+
+Beside the fact that streams are great as underlying data abstraction
+for concepts which are naturally represented as infinite series of data,
+streams can be used for several more purposes.
+
+### Iterations as stream processes
+
+As we know, iteration is a process that is described as set of actions
+that are conducted iterativelly on set of variables (set meaning one as
+well) which change their state in every iteration. Therefore usually we
+have some kind of assignement of new state to the variables on beginning
+or end of iteration ...Other approach is to hide the change of the state
+of variable into the stream and in every iteration just take next
+element from the stream. This way we separate set of operations that are
+to be conducted and the inputs to this set of operations for every
+iteration.

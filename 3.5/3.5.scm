@@ -256,3 +256,72 @@
 (define (negate-series series)
   (stream-map (lambda (x) (- x))
               series))
+
+
+; Representing iterations through streams
+
+; Previously we have defined the way to calculate the sqrt of a number
+; by iterativelly improving the guess
+
+(define (my-sqrt n)
+
+  (define (improve-guess guess n)
+    (average guess (/ n guess)))
+
+  (define (iter n guess eps)
+    (if (< (abs (- n (* guess guess))) eps)
+      guess
+      (iter n (improve-guess guess n) eps)))
+  (iter n 1 0.001))
+
+; (output (my-sqrt 4))
+;
+; Here we see the variable guess which figures out as state of the iteration.
+; What if we would move generation of new guesses to the stream.
+
+(define (improve-guess guess n)
+  (average guess (/ n guess)))
+
+
+(define (sqrt-stream n)
+  (define guesses
+    (cons-stream 1.0
+                 ; mapping guess improvement to the tail
+                 (stream-map (lambda (guess) (improve-guess guess n))
+                             guesses)))
+  guesses)
+
+; (display-stream-head (sqrt-stream 4 1) 20)
+
+; Here, current state of the iteration is the head of the stream.
+; By mapping procedure over stream tail we achieve to affect what value is
+; produced in next iteration. In fact we are putting the code that is to be executed
+; in iteration as procedure over the tail of the stream.
+
+; Based on the principle that we can do iteration in a way that we affect tail of the stream,
+; we can do more complex things. For example Euler's series accelerator which are used to improve
+; speed of convergence of the series.
+
+; For Sn as nth element of the stream, then stream is defined as
+; Sn+1 - ((Sn+1 - Sn)^2)/(Sn-1 - 2*Sn + Sn+1)
+; This is implemented like this
+
+(define (euler-transform s)
+  (let ((s0 (stream-ref s 0))           ; Sn-1
+        (s1 (stream-ref s 1))           ; Sn
+        (s2 (stream-ref s 2)))          ; Sn+1
+    (cons-stream (- s2 (/ (square (- s2 s1))
+                          (+ s0 (* -2 s1) s2)))
+                 (euler-transform (stream-cdr s)))))
+
+(define (partial-sums stream)
+  (cons-stream (stream-car stream)
+               (add-streams (partial-sums stream) (stream-cdr stream))))
+
+(define (pi-summands n)
+  (cons-stream (/ 1.0 n)
+               (stream-map - (pi-summands (+ n 2)))))
+(define pi-stream
+  (scale-stream (partial-sums (pi-summands 1)) 4))
+
+; (display-stream-head (euler-transform pi-stream) 10)
