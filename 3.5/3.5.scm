@@ -325,3 +325,31 @@
   (scale-stream (partial-sums (pi-summands 1)) 4))
 
 ; (display-stream-head (euler-transform pi-stream) 10)
+
+
+; Using streams we can generate not only streams of simple elements but
+; as well more complex structures. As examples we can produce the stream
+; of all the pairs from the two given streams.
+;
+; Lets take streams S and T, in the chapteer is explained the logic of
+; why we took this approach, but definition of the stream looks
+; something like this.
+
+(define (pairs s t)
+  (cons-stream
+   (list (stream-car s) (stream-car t))
+   (interleave
+    (stream-map (lambda (x) (list (stream-car s) x))
+                (stream-cdr t))
+    (pairs (stream-cdr s) (stream-cdr t)))))
+
+; where interleave is a function that takes first element of one stream
+; and then of the second <><><><> ...
+
+(define (interleave s1 s2)
+  (if (stream-null? s1)
+      s2
+      (cons-stream (stream-car s1)
+                   (interleave s2 (stream-cdr s1)))))
+
+(display-stream-head (pairs integers integers) 20)
