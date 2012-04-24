@@ -352,4 +352,4 @@
       (cons-stream (stream-car s1)
                    (interleave s2 (stream-cdr s1)))))
 
-(display-stream-head (pairs integers integers) 20)
+; (display-stream-head (pairs integers integers) 20)
