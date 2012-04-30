@@ -11,7 +11,6 @@
 ; numbers. The first such number is 1,729. What are the next five?
 
 (load "e-3.70.scm")
-(load "3.5.scm")
 
 (define (ramanujan-weight pair)
     (let ((i (car pair))
