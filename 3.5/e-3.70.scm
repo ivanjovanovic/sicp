@@ -73,8 +73,8 @@
     integers
     complex-sum))
 
-(output "Simple sum ordering (i, j) -> i + j")
-(display-stream-head basic-sum-weighted-pairs 20)
-(output "Complex sum ordering (i, j) -> 2*i + 3*j + 5*i*j")
-(display-stream-head complex-sum-weighted-pairs 20)
+; (output "Simple sum ordering (i, j) -> i + j")
+; (display-stream-head basic-sum-weighted-pairs 20)
+; (output "Complex sum ordering (i, j) -> 2*i + 3*j + 5*i*j")
+; (display-stream-head complex-sum-weighted-pairs 20)
 
