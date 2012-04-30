@@ -33,15 +33,15 @@
 ; make just the inversion of the elements if they are different or to
 ; emit null element if same
 
-(define all-pairs
-  (interleave
-    int-pairs
-    (stream-filter (lambda (x) (not (null? x))) (stream-map swap-pair int-pairs))))
-
 (define (swap-pair pair) ; represented as list of two elements, not cons
   (if (= (car pair) (cadr pair))
     '() ; if they are same don't emit one more like that
     (list (cadr pair) (car pair))))
 
+(define all-pairs
+  (interleave
+    int-pairs
+    (stream-filter (lambda (x) (not (null? x))) (stream-map swap-pair int-pairs))))
+
 ; small test to see if this works
-(display-stream-head all-pairs 20) ; it works
+; (display-stream-head all-pairs 20) ; it works

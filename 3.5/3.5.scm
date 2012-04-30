@@ -244,7 +244,8 @@
   (stream-map * s1 s2))
 
 (define (display-stream-head stream n)
-  (if (= n 1) (output (stream-car stream))
+  (if (= n 1)
+    (output (stream-car stream))
     (begin
       (output (stream-car stream))
       (display-stream-head (stream-cdr stream) (- n 1)))))
