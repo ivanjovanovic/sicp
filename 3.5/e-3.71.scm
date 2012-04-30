@@ -11,12 +11,12 @@
 ; numbers. The first such number is 1,729. What are the next five?
 
 (load "e-3.70.scm")
+(load "3.5.scm")
 
-(define ramanujan-weight
-  (lambda (pair)
+(define (ramanujan-weight pair)
     (let ((i (car pair))
           (j (cadr pair)))
-      (+ (* i i i) (* j j j)))))
+      (+ (* i i i) (* j j j))))
 
 (define ramanujan-weighted-pairs
   (weighted-pairs
@@ -24,22 +24,16 @@
     integers
     ramanujan-weight))
 
-(display-stream-head ramanujan-weighted-pairs 10)
+; (display-stream-head (stream-map ramanujan-weight ramanujan-weighted-pairs) 100)
 
 (define (ramanujan-stream-filter stream)
-  (let ((weight1 (ramanujan-weight (stream-car stream)))
-        (weight2 (ramanujan-weight (stream-car (stream-cdr stream)))))
-    (cond ((stream-null? stream) the-empty-stream)
-          ((= weight1 weight2)
-           (cons-stream
-             (stream-car stream)
-             (cons-stream
-               (stream-car (stream-cdr stream))
-               (ramanujan-stream-filter (stream-cdr (stream-cdr stream))))))
-          (else (ramanujan-stream-filter (stream-cdr stream))))))
+  (let* ((weight1 (ramanujan-weight (stream-car stream)))
+        (tail-of-stream (stream-cdr stream))
+        (weight2 (ramanujan-weight (stream-car tail-of-stream))))
+    (if (= weight1 weight2)
+      (cons-stream weight1 (ramanujan-stream-filter (stream-cdr tail-of-stream)))
+      (ramanujan-stream-filter tail-of-stream))))
 
+(define ramanujan-numbers (ramanujan-stream-filter ramanujan-weighted-pairs))
+(display-stream-head ramanujan-numbers 10) ;1729 4104 13832 20683 32832 39312 40033 46683 64232 65728
 
-(define ramanujan-pairs
-  (ramanujan-stream-filter ramanujan-weighted-pairs))
-
-(display-stream-head ramanujan-pairs 10)

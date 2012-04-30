@@ -38,10 +38,10 @@
                  ((> (weight s-car) (weight t-car))
                   (cons-stream t-car (merge-weighted s (stream-cdr t) weight)))
                  (else
-                  (cons-stream s-car
+                  (cons-stream s-car (cons-stream t-car ; important is not to forget both elements
                                (merge-weighted (stream-cdr s)
                                                (stream-cdr t)
-                                               weight))))))))
+                                               weight)))))))))
 
 (define (weighted-pairs s t weight)
   (cons-stream
