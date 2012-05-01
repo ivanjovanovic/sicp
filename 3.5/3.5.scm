@@ -367,3 +367,9 @@
                  (add-streams (scale-stream integrand dt)
                               int)))
   int)
+
+
+; Lot of these solutions are based on the fact that execution of the
+; tail of the stream is going to be delayed.
+; But there are places where we could use this delayed executio as well. For example
+; for solving the differential equations.
