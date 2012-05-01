@@ -354,3 +354,16 @@
                    (interleave s2 (stream-cdr s1)))))
 
 ; (display-stream-head (pairs integers integers) 20)
+
+
+
+; As said, streams can be used to represent signals in the sigal processing systems.
+;
+; Integrator for example:
+
+(define (integral integrand initial-value dt)
+  (define int
+    (cons-stream initial-value
+                 (add-streams (scale-stream integrand dt)
+                              int)))
+  int)
