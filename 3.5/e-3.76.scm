@@ -26,11 +26,10 @@
 (define (average x y)
   (/ (+ x y) 2))
 
-(define (average-stream input-stream)
+(define (smooth input-stream)
   (stream-map average input-stream (stream-cdr input-stream)))
 
 (define (make-zero-crossings input-stream)
   (stream-map sign-change-detector input-stream (stream-cdr input-stream)))
 
-(define zero-crossings
-  (make-zero-crossings (average-stream sensor-stream)))
+(define zero-crossings (make-zero-crossings (smooth sensor-stream)))
