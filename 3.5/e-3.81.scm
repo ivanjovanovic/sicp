@@ -10,6 +10,12 @@
 ; ------------------------------------------------------------
 
 ; in exercise 3.6 it is defined as a object with the internal state.
+(load "3.5.scm")
+(load "../3.1/e-3.6.scm")
+
+; first initializer
+(define random-init
+  (inexact->exact (current-milliseconds)))
 
 ; lets say random update is this one
 (define random-update
@@ -19,16 +25,6 @@
     (lambda (x)
       (modulo (+ (* a x) c) m))))
 
-(define rand
-  (let ((x random-init))
-    (lambda (m)
-      (cond ((eq? m 'generate)
-             (begin
-               (set! x (random-update x))
-               x))
-            ((eq? m 'reset)
-             (lambda (value)
-               (set! x value)))))))
 
 ; stream of random numbers is defined
 (define random-numbers
@@ -39,8 +35,27 @@
 ; argument the other stream in which is placed whether to generate new
 ; one or to start from the new value
 
-; it can be used like this
-(define random-stream (random-numbers actions))
+; directed-pseudo-random-stream
+(define (dp-random-stream directions)
+  (cons-stream
+    random-init
+    (stream-map
+      (lambda (number direction)
+        (if (eq? direction 'generate)
+          (random-update number)
+          direction))
+      (dp-random-stream directions) ; self-reference to the stream
+      directions)))
 
-(define (random-numbers actions)
-  )
+; test stream directions
+(define directions-stream
+  (cons-stream 'generate
+               (cons-stream 'generate
+                            (cons-stream 0
+                                         (cons-stream 'generate
+                                                      (cons-stream 'generate
+                                                                   (cons-stream 'generate
+                                                                                (cons-stream 'generate directions-stream))))))))
+(define test (dp-random-stream directions-stream))
+(display-stream-head test 20); with randomly inited first value -> 959 13 6 0 5 1 8 10 16 15 0 5 1 8 10 16 15 0 5 1
+
