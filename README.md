@@ -52,3 +52,9 @@ this so I don't lose the track of where I stoped.
 
 * [Scheme at Glance](http://www.troubleshooters.com/codecorn/scheme_guile/hello.htm)
 * [Schemers.org](http://schemers.org/)
+
+## Other SICP solutions online
+* http://eli.thegreenplace.net/category/programming/lisp/sicp/
+* https://wqzhang.wordpress.com/sicp-solutions/
+* http://community.schemewiki.org/?SICP-Solutions
+* https://github.com/Pluies/SICP
