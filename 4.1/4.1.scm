@@ -53,8 +53,8 @@
 ; apply takes procedure and its arguments and does the application
 (define (apply procedure arguments)
   (cond ((primitive-procedure? procedure)
-          (begin (debug-log 'APPLY-PRIMITIVE procedure)
-          (apply-primitive-procedure procedure arguments)))
+         (begin (debug-log 'APPLY-PRIMITIVE procedure)
+                (apply-primitive-procedure procedure arguments)))
         ((compound-procedure? procedure)
          (eval-sequence
            (procedure-body procedure)
