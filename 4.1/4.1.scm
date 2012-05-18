@@ -21,7 +21,15 @@
 ; Eval evaluates an expresion in an environment.
 ; It tries to deduct which type of expression it is
 ; and to proceded with the evaluation based on that
+(load "../helpers.scm")
+(load "../common.scm")
+(load "../debug.scm")
+
+(set-minimum-log-level 'DEBUG)
+(define apply-in-underlying-scheme apply)
+
 (define (eval exp env)
+  (debug-log "EVAL-ENTER" exp)
   (cond ((self-evaluating? exp) exp)
         ((variable? exp) (lookup-variable-value exp env))
         ((quoted? exp) (text-of-quotation exp))
@@ -36,20 +44,22 @@
          (eval-sequence (begin-actions exp) env))
         ((cond? exp) (eval (cond->if exp) env))
         ((application? exp)
+         (begin (debug-log "APPLICATION" exp)
          (apply (eval (operator exp) env)
-                (list-of-values (operands exp) env)))
+                (list-of-values (operands exp) env))))
         (else
           (error "Unknown expression type -- EVAL" exp))))
 
-; apply takes procedure and its arguments and doesn the application
+; apply takes procedure and its arguments and does the application
 (define (apply procedure arguments)
   (cond ((primitive-procedure? procedure)
-         (apply-primitive-procedure procedure arguments))
+          (begin (debug-log 'APPLY-PRIMITIVE procedure)
+          (apply-primitive-procedure procedure arguments)))
         ((compound-procedure? procedure)
          (eval-sequence
            (procedure-body procedure)
            (extend-environment
-             (procedure-paramters procedure)
+             (procedure-parameters procedure)
              arguments
              (procedure-environment procedure))))
         (else
@@ -71,7 +81,7 @@
 
 ; sequence of expressions
 (define (eval-sequence exps env)
-  (cond ((last-exp? exps) (eval (first-exp) exps) env)
+  (cond ((last-exp? exps) (eval (first-exp exps) env))
         (else (eval (first-exp exps) env)
               (eval-sequence (rest-exps exps) env))))
 
@@ -146,7 +156,7 @@
   (list 'if predicate consequent alternative))
 
 ; begin - sequencing
-(define (begin? exp) (tagged-list exp 'begin))
+(define (begin? exp) (tagged-list? exp 'begin))
 (define (begin-actions exp) (cdr exp))
 (define (last-exp? seq) (null? (cdr seq)))
 (define (first-exp seq) (car seq))
@@ -223,7 +233,7 @@
   (tagged-list? p 'procedure))
 (define (procedure-parameters p) (cadr p))
 (define (procedure-body p) (caddr p))
-(define (procedure-environment p) (cadddr))
+(define (procedure-environment p) (cadddr p))
 
 ; another entity we have to define is environment.
 ; It is represented as the list of frames.
@@ -284,9 +294,76 @@
 (define (define-variable! var val env)
   (let ((frame (first-frame env)))
     (define (scan vars vals)
-      (cons ((null? vars)
-             (add-binding-to-frame@ var val frame))
+      (cond ((null? vars)
+             (add-binding-to-the-frame! var val frame))
             ((eq? var (car vars))
-             (set-car! vals val))))))
+             (set-car! vals val))
+            (else (scan (cdr vars) (cdr vals)))))
+    (scan (frame-variables frame)
+          (frame-values frame))))
 
+; In order to use our evaluator we need several more primitives
 
+; procedure to set up basic elements of the global environment
+(define (primitive-procedure? proc)
+  (tagged-list? proc 'primitive))
+(define (primitive-implementation proc)
+  (debug-log "GETTING-PRIMITIVE-IMPLEMENTATION" proc)
+  (cadr proc))
+
+(define primitive-procedures
+  (list (list 'car car)
+        (list 'cdr cdr)
+        (list 'cons cons)
+        (list 'null? null?)))
+
+(define (primitive-procedure-names)
+  (map car primitive-procedures))
+
+(define (primitive-procedure-objects)
+  (map (lambda (proc) (list 'primitive (cadr proc)))
+       primitive-procedures))
+
+(define (setup-environment)
+  (let ((initial-env
+          (extend-environment (primitive-procedure-names)
+                              (primitive-procedure-objects)
+                              the-empty-environment)))
+    (define-variable! 'true true initial-env)
+    (define-variable! 'false false initial-env)
+    initial-env))
+(define the-global-environment (setup-environment))
+
+(define (apply-primitive-procedure proc args)
+  (debug-log "APPLY-PRIMITIVE-PROCEDURE" proc args)
+  (apply-in-underlying-scheme (primitive-implementation proc) args))
+
+;(debug-log primitive-procedures)
+;(debug-log (primitive-procedure-objects))
+
+; REPL
+
+(define input-prompt ";;; M-Eval input:")
+(define output-prompt ";;; M-Eval value:")
+(define (driver-loop)
+  (prompt-for-input input-prompt)
+  (let ((input (read)))
+    (let ((output (eval input the-global-environment)))
+      (announce-output output-prompt)
+      (user-print output)))
+  (driver-loop))
+(define (prompt-for-input string)
+  (newline) (newline) (display string) (newline))
+
+(define (announce-output string)
+  (newline) (display string) (newline))
+
+(define (user-print object)
+  (if (compound-procedure? object)
+      (display (list 'compound-procedure
+                     (procedure-parameters object)
+                     (procedure-body object)
+                     '<procedure-env>))
+      (display object)))
+
+(driver-loop)
