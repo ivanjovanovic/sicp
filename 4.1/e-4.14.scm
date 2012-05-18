@@ -11,5 +11,8 @@
 ; The difference between the two approaches is that when map procedure
 ; is defined by definition in REPL it is built as compound procedure and
 ; application for compound procedure is called.
-; If it is defined as primitive than it will try to use application of
-; the primitive procedure which doesn't support this approach.
+;
+; In the case when map is defined as primitive and executed as apply-primitive,
+; passed function will not be processed and passed to map as implementation of
+; the procedure but will be passed as procedure object which our underlying
+; implementation an't use as parameter in the system defined map procedure.
