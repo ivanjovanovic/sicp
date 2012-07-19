@@ -1,3 +1,4 @@
+(load "../common.scm")
 ; In order to test if machines we design are returning proper results, we are
 ; going to build a simulator that will run the machine. In that way, we'll see
 ; how our machines behave.
@@ -52,7 +53,7 @@
     dispatch))
 
 (define (get-contents register) (register 'get))
-(define (set-contents register value) ((register 'set) value))
+(define (set-contents! register value) ((register 'set) value))
 
 ; stack implementation as a procedure with local state
 (define (make-stack)
@@ -86,10 +87,12 @@
         (stack (make-stack))
         (the-instruction-sequence '()))
     (let ((the-ops
-            ((list (list 'initialize-stack
-                         (lambda () (stack 'initialize))))))
+            (list (list 'initialize-stack
+                         (lambda () (stack 'initialize)))))
           (register-table
             (list (list 'pc pc) (list 'flag flag))))
+
+      ; allocation of the new register object with the given name
       (define (allocate-register name)
         (if (assoc name register-table)
           (error "Multiply defined register: " name)
@@ -97,12 +100,15 @@
             (cons (list name (make-register name))
                   register-table)))
         'register-allocated)
-      
+
+      ; get the value of the register
       (define (lookup-register name)
         (let ((val (assoc name register-table)))
           (if val
             (cadr val)
             (error "Unknown register: " name))))
+
+      ; run the machine
       (define (execute)
         (let ((insts (get-contents pc)))
           (if (null? insts)
@@ -110,7 +116,8 @@
             (begin
               ((instruction-execution-proc (car insts)))
               (execute)))))
-      
+
+      ; external interface
       (define (dispatch message)
         (cond ((eq? message 'start)
                (set-contents! pc the-instruction-sequence)
@@ -120,11 +127,11 @@
               ((eq? message 'allocate-register) allocate-register)
               ((eq? message 'get-register) lookup-register)
               ((eq? message 'install-operations)
-               (lambda (ops) (set! the-ops (append the-ops ops)))
+               (lambda (ops) (set! the-ops (append the-ops ops))))
               ((eq? message 'stack) stack)
               ((eq? message 'operations) the-ops)
               (else (error "Unknown request -- MACHINE" message))))
-      dispatch))))
+      dispatch)))
 
 (define (start machine) (machine 'start))
 (define (get-register-contents machine register-name) (get-contents (get-register machine register-name)))
@@ -163,7 +170,7 @@
         (ops (machine 'operations)))
     (for-each
      (lambda (inst)
-       (set-instruction-execution-proc! 
+       (set-instruction-execution-proc!
         inst
         (make-execution-procedure
          (instruction-text inst) labels machine
@@ -294,7 +301,7 @@
   (let ((reg (get-register machine
                            (stack-inst-reg-name inst))))
     (lambda ()
-      (set-contents! reg (pop stack))    
+      (set-contents! reg (pop stack))
       (advance-pc pc))))
 
 (define (stack-inst-reg-name stack-instruction)
@@ -344,6 +351,7 @@
   (let ((op (lookup-prim (operation-exp-op exp) operations))
         (aprocs
          (map (lambda (e)
+                ; check if operand is register or constant, otherwise raise error
                 (make-primitive-exp e machine labels))
               (operation-exp-operands exp))))
     (lambda ()
@@ -361,3 +369,10 @@
     (if val
         (cadr val)
         (error "Unknown operation -- ASSEMBLE" symbol))))
+
+(define (tagged-list? exp tag)
+  (if (pair? exp)
+    (eq? (car exp) tag)
+    false))
+
+
