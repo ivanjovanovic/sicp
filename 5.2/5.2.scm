@@ -59,7 +59,7 @@
 (define (make-stack)
   (let ((s '()))
     (define (push x)
-      (set s (cons x s)))
+      (set! s (cons x s)))
     (define (pop)
       (if (null? s)
         (error "Empty stack -- POP")

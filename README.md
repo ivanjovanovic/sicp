@@ -50,6 +50,7 @@ this so I don't lose the track of where I stoped.
 
 ### Used references
 
+* [R5RS Standard specification](http://schemers.org/Documents/Standards/R5RS/r5rs.pdf)
 * [Scheme at Glance](http://www.troubleshooters.com/codecorn/scheme_guile/hello.htm)
 * [Schemers.org](http://schemers.org/)
 
