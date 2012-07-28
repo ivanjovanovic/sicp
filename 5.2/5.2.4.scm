@@ -1,4 +1,4 @@
-(load "5.2.scm")
+(load "../5.2/5.2.scm")
 
 ; we update the machine with the new stack and add an instruction to
 ; print the stack statisticks
