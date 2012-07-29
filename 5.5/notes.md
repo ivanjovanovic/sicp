@@ -47,6 +47,8 @@ the expression which is executed in the registers and stepping through
 the evaluation process is easy. Compilers on the other side have to do
 some effort to produce debugging information and enable debugging. LISP
 systems tend to provide possibility to mix compiled and interpreted
-code.
+code. For this, usually compiler produces the object program which
+conforms to the rules of execution of the interpreted code using maybe
+just a subset of resources but in the same way.
 
 
