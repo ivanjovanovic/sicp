@@ -1,14 +1,19 @@
-# SICP Readig excercise
+# A Year of SICP
 
-On August the 1st of 2011 I started a project which was to improve my
+On August the 1st of 2011 I started a project which was to raise my
 programming skills to a new level of understanding the magic of computer
-programming.
+programming. Somehow it turned out that it took me exactly one year to
+finish. On 31st of July 2012. I have finished the sectoin 5.5 of the book.
+By finishing, I mean to do almost all exercises in the book and to
+try to understand every concept presented in the book. As I figured out
+towards the end, the goal of the book in fact is to destroy all the
+magic that incompetent eye could see in the programming job. Maybe
+better said, to lead the reader into the skills needed to bridle the
+core concepts of the domain and to use them as magician would do to
+produce magical things.
 
 SICP (Structure and Interpretation of Computer Programs) is a masterpiece of
-Harold Abelson and Gerald Jay Sussman on basics of computer programming taken from a point of view of
-a magician. Magician whose imagination is the only limit for the
-achievements in the field of modeling of knowledge into processes which
-are to be executed on machines.
+Harold Abelson and Gerald Jay Sussman on basics of computer science and software engineering.
 
 ### Goal
 
@@ -28,13 +33,12 @@ examples. It is better in supporting standards, comes with additional
 libraries that can be installed, it is MUCH faster and gives much better
 error messages with proper bracktraces.
 
-I used [Heist](https://github.com/jcoglan/heist) Scheme interpreter
-written in Ruby which should be sufficient for development of the
-excercises given in the book. I use Vim for and IDE.
+At start, I used [Heist](https://github.com/jcoglan/heist) Scheme interpreter
+written in Ruby.
 
-Also I use [Racket](http://racket-lang.org/) for deeper debugging and
-analysis of the problems.
-
+Also I used [Racket](http://racket-lang.org/) for deeper debugging and
+analysis of the problems where needed. After I got some parenthesis
+parsing powers I did not need it that much.
 
 Usually I go this way through the material:
   1. Watch the video lecture, or the part of it while taking notes
