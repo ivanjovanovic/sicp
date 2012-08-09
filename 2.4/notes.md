@@ -72,4 +72,6 @@ Here, we can see that from the constructor we return a procedure
 `dispatch` which receives operation to be executed on the data. Data in
 fact is not put in any data structure like pair, but sits as couple of
 bound variables of the internaly defined dispatch message. One obvious
-advantage here is that instance of our data (if we can call it like that) is holding close to the data list of operations that can be done with its data. It is not in some kind of ermote table that has to be managed separately.
+advantage here is that instance of our data (if we can call it like that)
+ is holding close to the data list of operations that can be done with its data.
+ It is not in some kind of remote table that has to be managed separately.

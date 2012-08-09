@@ -21,7 +21,7 @@ have to be aware that we should not forget the power and all good that
 functional approach to programming brings but we should see introduction
 of changing state only as tool for the cases where it is needed.
 
-As said, we will hae to introduce new model of computation, which will
+As said, we will have to introduce new model of computation, which will
 be defined and esplained as environmental model of computation.
 
 ## Assignment and local state
