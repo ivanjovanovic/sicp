@@ -61,6 +61,5 @@ Some approaches to this problem are:
 This is in fact about creating new programming languages that are more
 suitable for capturing knowledge present in some domain. It is about
 creating your own tool for the purpose before using a tool meant for
-soething else.
-
+something else.
 
