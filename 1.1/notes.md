@@ -37,7 +37,7 @@ Here we defined a `square` primitive which captures the knowledge of
 getting square of a number.
 
 In Lisp there is only one more primitive which enables us to make
-decisions within our procedures. On example of defining absolute number 
+decisions within our procedures. On example of defining absolute number
 
     (define (abs x)
       (cond ((< x 0) (- x))
@@ -57,7 +57,7 @@ To evaluate statements whose part are operators that form compound
 procedures to primitive ones we use so called substitution models. There
 are two of them.
 
-### Applicative order
+### Applicative order evaluation
 
 This substitution model is based on the process of substitution which is
 based on next steps:
@@ -89,9 +89,9 @@ then
 
     (+ 36 100)
 
-which finally gives `136` as the result. 
+which finally gives `136` as the result.
 
-### Normal order
+### Normal order evaluation
 
 Normal order is different in the sense that it doesn't evaluate
 corresponding operands until substitution process evaluates all the

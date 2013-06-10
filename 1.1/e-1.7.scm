@@ -8,9 +8,9 @@
 ; this kind of end test. Does this work better for small and large numbers?
 ;
 ;
-; While solving this exercis, I didn't want to use constructs which are not introduced except
+; While solving this exercise, I didn't want to use constructs which are not introduced except
 ; for one which will enable printing of the current state of guess value.
-; Therefore, in the solutions below you can find repeateable procedure calls or not exactly 
+; Therefore, in the solutions below you can find repeatable procedure calls or not exactly
 ; the most accurate solution to problem. Anyway, what is important to learn here are principles.
 ; Anyway, the results are not that important.
 
