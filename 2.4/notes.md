@@ -57,16 +57,15 @@ The other way of solving the problem of generic operations that need to
 be done is so called `message passing`. It is hard to explain it without
 the example. So here is one simple example
 
-(define (make-from-real-imag x y)
-  (define (dispatch op)
-    (cond ((eq? op 'real-part) x)
-          ((eq? op 'imag-part) y)
-          ((eq? op 'magnitude)
-           (sqrt (+ (square x) (square y))))
-          ((eq? op 'angle) (atan y x))
-          (else
-           (error "Unknown op -- MAKE-FROM-REAL-IMAG" op))))
-  dispatch)
+    (define (make-from-real-imag x y)
+        (define (dispatch op)
+            (cond ((eq? op 'real-part) x)
+                  ((eq? op 'imag-part) y)
+                  ((eq? op 'magnitude) (sqrt (+ (square x) (square y))))
+                  ((eq? op 'angle) (atan y x))
+                  (else
+                    (error "Unknown op -- MAKE-FROM-REAL-IMAG" op)))) 
+        dispatch)
 
 Here, we can see that from the constructor we return a procedure
 `dispatch` which receives operation to be executed on the data. Data in
