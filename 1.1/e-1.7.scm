@@ -1,4 +1,5 @@
-; Exercise 1.7.  The good-enough? test used in computing square roots will not be very
+; Exercise 1.7.
+; The good-enough? test used in computing square roots will not be very
 ; effective for finding the square roots of very small numbers. Also, in real computers,
 ; arithmetic operations are almost always performed with limited precision. This makes our
 ; test inadequate for very large numbers. Explain these statements, with examples showing
@@ -12,12 +13,11 @@
 ; for one which will enable printing of the current state of guess value.
 ; Therefore, in the solutions below you can find repeatable procedure calls or not exactly
 ; the most accurate solution to problem. Anyway, what is important to learn here are principles.
-; Anyway, the results are not that important.
 
 (define (square-iter guess x)
   (if (good-enough? guess x)
       guess
-      (begin ; used this compount procedure in order to be able to
+      (begin ; used this compound procedure in order to be able to
         (display guess) ; display the intermediate guess values
         (newline)
         (square-iter (improve guess x) x)
@@ -40,9 +40,9 @@
 (define (sqrt x)
   (square-iter 1.0 x))
 
-;(display (sqrt 1234567898765432101010101010))
-;(display (sqrt 0.0006))
-;(newline)
+; (display (sqrt 1234567898765432101010101010))
+; (display (sqrt 0.0006))
+; (newline)
 
 ; additional definitions for new way of implementation of the Babylonian
 ; method. improve method is called twice since we still did not
@@ -64,9 +64,9 @@
 (define (sqrt-delta x)
   (square-iter-delta 1.0 x))
 
-;(display (sqrt-delta 1234567898765432101010101010))
-(display (sqrt-delta 0.0006))
-(newline)
+; (display (sqrt-delta 1234567898765432101010101010))
+; (display (sqrt-delta 0.0006))
+; (newline)
 
 
 ; Ratio behind the problems.
@@ -125,6 +125,6 @@
 ; This is because the good-enough? will stop here because
 ; | 0.0006 - (0.037397194007827136 * 0.037397194007827136) | is less than 0.001
 ;
-; So here we would need greater precision for the criterium.
+; So here we would need greater precision for the criteria.
 ;
 ; Running it with adjusted method will produce 0.024587591941419955 as result

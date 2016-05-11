@@ -1,13 +1,13 @@
 # Foreword
 
-On very beginning of the lectures, authors explain clearly what is their
+On the very beginning of the lectures, authors explain clearly what is their
 view on these lectures regarding naming them a part of "computer science" curricula.
-It is not in fact science what is done here, and it is not either relaed
+It is not in fact science what is done here, and it is neither related
 to computers only.
 
 It is in fact about two things:
 
-  1. How we define "what is true" - declerative knowledge
+  1. How we define "what is true" - declarative knowledge
   2. How we define "how to" do something - imperative knowledge
 
 Programming itself they see as a way to express our knowledge about
@@ -56,7 +56,7 @@ Some approaches to this problem are:
 * object-oriented programming
 * operations on aggregates
 
-### Technique 3: Metalinguistic abstraction
+### Technique 3: Meta-linguistic abstraction
 
 This is in fact about creating new programming languages that are more
 suitable for capturing knowledge present in some domain. It is about

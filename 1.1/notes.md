@@ -29,7 +29,7 @@ define primitive enables us to define procedures as well in two ways
 
     (define (square x) (* x x))
 
-where implicitelly we do this in fact
+where implicitly we do this in fact
 
     (define square (lambda (x) (* x x)))
 
@@ -91,6 +91,16 @@ then
 
 which finally gives `136` as the result.
 
+All together:
+
+    (f 5)
+    (sum-of-squares (+ a 1) (* a 2))
+    (sum-of-squares (+ 5 1) (* 5 2))
+    (+ (square 6) (square 10))
+    (+ (* 6 6) (* 10 10))
+    (+ 36 100)
+    136
+
 ### Normal order evaluation
 
 Normal order is different in the sense that it doesn't evaluate
@@ -120,3 +130,13 @@ then
     (+ 36 100)
 
 which is again `136` as the result
+
+All together:
+
+    (f 5)
+    (sum-of-squares (+ 5 1) (* 5 2))
+    (+ (square (+ 5 1)) (square (* 5 2)))
+    (+ (* (+ 5 1) (+ 5 1)) (* (* 5 2) (* 5 2)))
+    (+ (* 6 6) (* 10 10))
+    (+ 36 100)
+    136

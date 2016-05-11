@@ -1,6 +1,6 @@
 # A Year of SICP
 
-On August the 1st of 2011 I started a project which was to raise my
+On 1st of August 2011. I started a project which was to raise my
 programming skills to a new level of understanding the magic of computer
 programming. Somehow it turned out that it took me exactly one year to
 finish. On 31st of July 2012. I have finished the section 5.5 of the book.
@@ -27,14 +27,14 @@ My goal is to
 
 ### Process
 
+At start, I used [Heist](https://github.com/jcoglan/heist) Scheme interpreter
+written in Ruby.
+
 After I passed more then a third of examples I have installed
 [CHICKEN](http://call-cc.org/) Scheme compiler and interpreter to run
 examples. It is better in supporting standards, comes with additional
 libraries that can be installed, it is MUCH faster and gives much better
 error messages with proper backtraces.
-
-At start, I used [Heist](https://github.com/jcoglan/heist) Scheme interpreter
-written in Ruby.
 
 Also I used [Racket](http://racket-lang.org/) for deeper debugging and
 analysis of the problems where needed. After I got some parenthesis
@@ -50,7 +50,6 @@ Usually I go this way through the material:
 Of course, I don't tend to do this in one take, I do it continuously
 when I have free time but trying to dedicate as much time as I can to
 this so I don't lose the track of where I stopped.
-
 
 ### Used references
 

@@ -26,15 +26,14 @@
 (define (sqrt x)
   (sqrt-iter 1.0 x))
 
-(display (sqrt 36))
+; (display (sqrt 36))
 
-
-; Although that we would expect same result of our function as we would
+; Although we would expect same result of our function as we would
 ; with primitive if operator, we get the information that Stack Level
-; got to deep during execution.
+; got too deep during execution.
 ;
 ; Difference is that new-if method evaluates in the normal order
-; coparing to applicative order of evaluation which is applied to the
+; comparing to applicative order of evaluation which is applied to the
 ; primitive procedures.
 ;
 ; Normal order is such that compound procedures are evaluated but
