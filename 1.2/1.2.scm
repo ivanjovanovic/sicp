@@ -1,6 +1,6 @@
 ; One of the trivial problems which can describe the difference between
 ; recursive and iterative processes is calculation of factorial
-; 
+;
 ; n! = n*(n-1)*(n-2)*...*3*2*1
 ;
 ; This can be recursivelly defined and executed like this
@@ -32,7 +32,7 @@
 ; 720
 ;
 ; We can see that representation of this process shows growth in two
-; dimensions 
+; dimensions
 ;
 ; Number of steps required to finish
 ; Number of elements that have to be saved for later execution
@@ -43,7 +43,7 @@
 ; Here we see as well that we need to save n number of elements for
 ; input of size n, so we say that it grows in space with O(n).
 ;
-; For process with growth of 
+; For process with growth of
 ; time  = O(n)
 ; space = O(n)
 ;
@@ -54,7 +54,7 @@
 (define (fact-iter product counter max-count)
   (if (> counter max-count)
       product
-      (fact-iter 
+      (fact-iter
         (* product counter)
         (+ counter 1)
         max-count)))
@@ -271,6 +271,3 @@
 
 ; (display (fast-prime? 1232312323 10))
 ; (newline)
-
-
-
