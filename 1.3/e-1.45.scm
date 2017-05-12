@@ -34,7 +34,7 @@
 ; (display (fourth-root 100))
 ; (newline)
 
-; So if we define general function for the n-th rot of the number with
+; So if we define general function for the n-th root of the number with
 ; configurable damps
 (define (nth-root x n damps)
   (fixed-point ((repeated average-dump damps) (lambda (y) (/ x (fast-expt y (- n 1))))) 1.0 0.001))
