@@ -24,7 +24,7 @@
 ; (display ((smooth square) 2))
 ; (newline)
 
-; now we repeat smooting n times by reusing the 
+; now we repeat smoothing n times by reusing the 
 ; repeat function and smooth defined above
 (define (n-fold-smooth f n)
   ((repeated smooth n) f))
