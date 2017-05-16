@@ -113,7 +113,7 @@
 ; [9.998000199980002, 10.002000200020001]
 ; [center: 10.000000200000002, percent: 0.019999999799988934]  ;
 ;
-; We see that with with smaller widths of the interval calculations become more precise.
+; We see that with smaller widths of the interval calculations become more precise.
 ; This is due to inherently imprecise interval arithmetic. It is providing only interval
 ; of possible results as outcome of operations and that outcome is going to be as precise
 ; as width of interval is small.
