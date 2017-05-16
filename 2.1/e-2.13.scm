@@ -14,11 +14,11 @@
 ;
 ; [a*b*(1 - (Pa + Pb - Pa*Pb)), a*b*(1 + (Pa + Pb + Pa*Pb))]
 ;
-; so in rder to set it into wanted form we have to make
+; so in order to set it into wanted form we have to make
 ; 
 ; Pa + Pb - Pa*Pb == Pa + Pb + Pa*Pb
 ;
-; If Pa and Pb are rally small then their product is becoming 
+; If Pa and Pb are really small then their product is becoming 
 ; insignificant comparing to Pa and Pb and can be discarded as such.
 ;
 ; So percentage in this case can be expressed as Pa + Pb.
