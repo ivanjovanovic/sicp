@@ -4,10 +4,10 @@
 
 (controller
   (assign N (read)) ; assuming read is given as a primitive
-  (assign p 1)
-  (assign c 1)
+  (assign p (const 1))
+  (assign c (const 1))
 iter
-  (test (op >) (reg c) (const N))
+  (test (op >) (reg c) (reg N))
   (branch (label iter-done))
   (assign p (op *) (reg p) (reg c))
   (assign c (op +) (reg c) (const 1))
